@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a simple portfolio or blog with Saish's browser-based site builder.">
+  <title>Create | Saish Studio</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <script src="../assets/js/theme.js"></script>
+  <style>
+    :root {
+      --ink: #17181c;
+      --muted: #737781;
+      --line: #e6e7eb;
+      --paper: #f7f7f5;
+      --blue: #147ef5;
+      --panel: rgba(255,255,255,.74);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    .shell { width: min(1240px, calc(100% - 32px)); margin-inline: auto; }
+    .glass { background: var(--panel); border: 1px solid rgba(255,255,255,.8); box-shadow: 0 20px 60px rgba(30,35,45,.08); backdrop-filter: blur(22px); }
+    .topbar { position: sticky; top: 16px; z-index: 10; margin: 16px auto 0; border: 1px solid rgba(20,25,35,.08); border-radius: 999px; background: rgba(255,255,255,.72); box-shadow: 0 12px 34px rgba(30,35,45,.08); backdrop-filter: blur(20px); }
+    .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; }
+    .brand { font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -.04em; }
+    .nav-link { color: #6d717b; font-size: 14px; text-decoration: none; transition: color .2s ease; }
+    .nav-link:hover, .nav-link.active { color: var(--ink); }
+    .button { border: 0; border-radius: 999px; padding: 12px 18px; font-weight: 700; font-size: 14px; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: var(--ink); box-shadow: 0 8px 18px rgba(20,23,30,.16); }
+    .button-blue { color: white; background: var(--blue); box-shadow: 0 8px 18px rgba(20,126,245,.22); }
+    .button-soft { color: var(--ink); background: #eef0f4; }
+    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: Montserrat, sans-serif; letter-spacing: -.05em; }
+    h1 { max-width: 800px; margin: 22px 0 18px; font-size: clamp(42px, 7vw, 86px); line-height: .98; }
+    .hero { padding: 94px 0 72px; }
+    .hero-copy { max-width: 680px; color: var(--muted); font-size: 20px; line-height: 1.55; }
+    .workspace { display: grid; grid-template-columns: 250px minmax(0, 1fr) 290px; gap: 16px; align-items: start; }
+    .panel { border: 1px solid var(--line); border-radius: 24px; background: rgba(255,255,255,.82); box-shadow: 0 18px 50px rgba(30,35,45,.06); }
+    .panel-heading { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 12px; }
+    .panel-heading h2 { margin: 0; font-size: 16px; letter-spacing: -.025em; }
+    .panel-subtitle { color: var(--muted); font-size: 12px; }
+    .block-list { display: grid; gap: 9px; padding: 12px; }
+    .block-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 13px 12px; color: #434750; background: #f6f7f9; border: 1px solid transparent; border-radius: 14px; text-align: left; font-size: 13px; font-weight: 700; transition: border .2s ease, background .2s ease, transform .2s ease; }
+    .block-item:hover, .block-item:focus-visible { border-color: #b9d7ff; background: #f0f6ff; transform: translateX(2px); outline: none; }
+    .block-icon { display: grid; width: 28px; height: 28px; place-items: center; color: var(--blue); background: #e7f1ff; border-radius: 9px; font-size: 13px; }
+    .canvas-wrap { min-width: 0; }
+    .canvas-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    .canvas-toolbar span { color: var(--muted); font-size: 12px; }
+    .canvas { min-height: 640px; padding: 24px; background: #eef0f3; border-radius: 0 0 24px 24px; }
+    .canvas.drag-over { background: #e2efff; }
+    .site-preview { min-height: 590px; overflow: hidden; background: white; border: 1px solid #e0e2e6; border-radius: 16px; }
+    .empty-state { display: grid; min-height: 590px; place-items: center; padding: 30px; color: var(--muted); text-align: center; }
+    .empty-state strong { display: block; color: var(--ink); font-family: Montserrat, sans-serif; font-size: 18px; margin-bottom: 8px; }
+    .site-block { position: relative; border: 1px solid transparent; transition: border .2s ease, box-shadow .2s ease; }
+    .site-block:hover, .site-block.selected { border-color: #8ebeff; box-shadow: inset 0 0 0 1px rgba(20,126,245,.12); }
+    .block-actions { position: absolute; top: 10px; right: 10px; z-index: 2; display: flex; gap: 5px; opacity: 0; transition: opacity .2s ease; }
+    .site-block:hover .block-actions, .site-block.selected .block-actions { opacity: 1; }
+    .block-actions button { width: 28px; height: 28px; color: #50545c; background: white; border: 1px solid #dfe3e9; border-radius: 8px; font-size: 12px; }
+    .preview-hero { padding: 66px 34px; color: white; text-align: center; background: #101114; }
+    .preview-hero h3 { margin: 0 auto 12px; max-width: 520px; font-size: clamp(28px, 5vw, 54px); line-height: 1; }
+    .preview-hero p, .preview-text p { max-width: 570px; margin: 0 auto; color: #aeb4c0; font-size: 16px; line-height: 1.6; }
+    .preview-text { padding: 42px 34px; text-align: center; }
+    .preview-text h3 { margin: 0 0 12px; font-size: 30px; }
+    .preview-image { padding: 28px; text-align: center; }
+    .preview-image div { display: grid; min-height: 190px; place-items: center; color: #6a707b; background: #f0f2f5; border: 1px dashed #c5cad2; border-radius: 14px; }
+    .preview-cta { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 34px; background: #f4f7fb; }
+    .preview-cta h3 { margin: 0 0 6px; font-size: 22px; }
+    .preview-cta p { margin: 0; color: var(--muted); font-size: 14px; }
+    .settings { display: grid; gap: 14px; padding: 12px 20px 20px; }
+    .setting { display: grid; gap: 7px; }
+    .setting label { color: #646a75; font-size: 12px; font-weight: 700; }
+    .setting input, .setting textarea, .setting select { width: 100%; border: 1px solid #dfe2e8; border-radius: 11px; padding: 10px 11px; color: var(--ink); background: #fafbfc; font-size: 13px; outline: none; }
+    .setting textarea { min-height: 88px; resize: vertical; }
+    .setting input:focus, .setting textarea:focus, .setting select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(20,126,245,.12); }
+    .settings-empty { padding: 15px 20px 22px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .activities { padding: 104px 0 90px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .section-heading h2 { margin: 8px 0 0; font-size: clamp(30px, 4vw, 48px); }
+    .section-heading p { max-width: 430px; margin: 0; color: var(--muted); line-height: 1.5; }
+    .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .activity-card { min-height: 280px; padding: 24px; border: 1px solid var(--line); border-radius: 22px; background: #fff; box-shadow: 0 18px 50px rgba(30,35,45,.05); }
+    .activity-card h3 { margin: 22px 0 8px; font-size: 22px; }
+    .activity-card p { min-height: 48px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .activity-icon { display: grid; width: 46px; height: 46px; place-items: center; color: var(--blue); background: #eaf3ff; border-radius: 15px; font-size: 22px; }
+    .template-card { display: grid; gap: 5px; padding: 16px; color: var(--ink); background: rgba(255,255,255,.62); border: 1px solid var(--line); border-radius: 16px; transition: transform .2s ease, border .2s ease, box-shadow .2s ease; }
+    .template-card:hover { transform: translateY(-3px); border-color: #9bc6ff; box-shadow: 0 10px 24px rgba(20,126,245,.1); }
+    .template-card strong { font-family: Montserrat, sans-serif; font-size: 14px; }
+    .template-card span { color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .activity-output { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; color: #555b66; font-size: 13px; }
+    .breath-orb { width: 52px; height: 52px; border-radius: 50%; background: #dbeaff; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .breath-orb.breathing { transform: scale(1.45); background: #b8d6ff; }
+    .timer { color: var(--ink); font-family: Montserrat, sans-serif; font-size: 25px; font-weight: 700; }
+    .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; width: 112px; }
+    .memory-card { width: 24px; height: 24px; padding: 0; color: transparent; background: #e5e8ed; border: 0; border-radius: 6px; }
+    .memory-card.revealed { color: var(--blue); background: #e8f2ff; }
+    .footer { padding: 28px 0 42px; color: var(--muted); text-align: center; font-size: 13px; }
+    html[data-theme="dark"] body { background: #111214 !important; color: #f5f5f7 !important; }
+    html[data-theme="dark"] .topbar, html[data-theme="dark"] .panel, html[data-theme="dark"] .activity-card { background: rgba(30,31,34,.86); border-color: rgba(255,255,255,.12); }
+    html[data-theme="dark"] .nav-link, html[data-theme="dark"] .panel-subtitle, html[data-theme="dark"] .settings-empty, html[data-theme="dark"] .hero-copy, html[data-theme="dark"] .section-heading p, html[data-theme="dark"] .activity-card p, html[data-theme="dark"] .footer { color: #a1a1a6; }
+    html[data-theme="dark"] .block-item, html[data-theme="dark"] .button-soft { color: #f5f5f7; background: #292a2e; }
+    html[data-theme="dark"] .canvas { background: #202124; }
+    html[data-theme="dark"] .site-preview { background: #303136; border-color: rgba(255,255,255,.12); }
+    html[data-theme="dark"] .settings input, html[data-theme="dark"] .settings textarea, html[data-theme="dark"] .settings select { color: #f5f5f7; background: #202124; border-color: rgba(255,255,255,.16); }
+    html[data-theme="dark"] .activity-icon { color: #70b7ff; background: rgba(41,151,255,.16); }
+    html[data-theme="dark"] .template-card { color: #f5f5f7; background: #292a2e; }
+    html[data-theme="dark"] .memory-card { color: transparent; background: #45474d; }
+    html[data-theme="dark"] .memory-card.revealed { color: #70b7ff; background: rgba(41,151,255,.2); }
+    @media (max-width: 980px) { .workspace { grid-template-columns: 210px minmax(0, 1fr); } .settings-panel { grid-column: 1 / -1; } .settings { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px) { .shell { width: min(100% - 24px, 560px); } .topbar { top: 8px; margin-top: 8px; } .topbar-inner { padding: 0 14px; } .topbar nav { display: none; } .hero { padding: 62px 0 48px; } .hero-copy { font-size: 17px; } .workspace { grid-template-columns: 1fr; } .canvas { padding: 12px; } .settings-panel { grid-column: auto; } .settings { grid-template-columns: 1fr; } .activity-grid { grid-template-columns: 1fr; } .section-heading { display: block; } .section-heading p { margin-top: 12px; } .preview-cta { display: block; } .preview-cta .button { margin-top: 18px; } }
+  </style>
+</head>
+<body>
+  <header class="topbar shell">
+    <div class="topbar-inner">
+      <a class="brand" href="../">SAISH<span style="color:var(--blue)">.</span> STUDIO</a>
+      <nav class="flex items-center gap-6" aria-label="Studio navigation">
+        <a class="nav-link" href="../">Portfolio</a>
+        <a class="nav-link active" href="#builder">Create</a>
+        <a class="nav-link" href="#activities">Activities</a>
+      </nav>
+      <button class="button button-primary" id="exportTop">Export ZIP</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="eyebrow">Saish Studio / Create</div>
+      <h1>Make something worth sharing.</h1>
+      <p class="hero-copy">Build a quiet, polished starter site directly in your browser. Arrange a few purposeful blocks, tune the copy, then download clean HTML and CSS ready for GitHub Pages.</p>
+      <div class="flex flex-wrap gap-3 mt-7">
+        <a class="button button-primary" href="#builder">Open builder</a>
+        <a class="button button-soft" href="#activities">Take a mindful pause</a>
+      </div>
+    </section>
+
+    <section class="shell" id="builder" aria-labelledby="builder-title">
+      <div class="section-heading">
+        <div><div class="eyebrow">01 / Build</div><h2 id="builder-title">Your little website studio.</h2></div>
+        <p>Drag a block into the canvas or tap it to add it. Select a block to edit its copy on the right.</p>
+      </div>
+      <div class="glass rounded-[24px] p-6 md:p-8 mb-4">
+        <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><div class="eyebrow">Start with a template</div><h2 class="mt-2 text-2xl md:text-3xl">A useful first draft beats a blank page.</h2></div>
+          <p class="max-w-xl text-sm leading-relaxed text-slate-500">Choose a structure, replace the words, add your own image later, and export when the page feels like you.</p>
+        </div>
+        <div class="mt-6 grid gap-3 md:grid-cols-3">
+          <button class="template-card text-left" data-template="portfolio"><strong>Personal portfolio</strong><span>Hero, work intro, and contact.</span></button>
+          <button class="template-card text-left" data-template="blog"><strong>Simple blog</strong><span>Editorial intro, story section, and CTA.</span></button>
+          <button class="template-card text-left" data-template="launch"><strong>Project launch</strong><span>Product story, visual pause, and action.</span></button>
+        </div>
+      </div>
+      <div class="glass rounded-[24px] px-6 py-5 mb-4">
+        <div class="grid gap-4 text-sm md:grid-cols-4">
+          <div><b>1. Choose</b><span class="block mt-1 text-slate-500">Pick a template or start empty.</span></div>
+          <div><b>2. Compose</b><span class="block mt-1 text-slate-500">Drag blocks into your page.</span></div>
+          <div><b>3. Customize</b><span class="block mt-1 text-slate-500">Select a section and edit its copy.</span></div>
+          <div><b>4. Export</b><span class="block mt-1 text-slate-500">Download clean files for GitHub Pages.</span></div>
+        </div>
+      </div>
+      <div class="workspace">
+        <aside class="panel" aria-label="Website blocks">
+          <div class="panel-heading"><h2>Blocks</h2><span class="panel-subtitle">drag or tap</span></div>
+          <div class="block-list">
+            <button class="block-item" draggable="true" data-block="hero"><span class="block-icon">H</span>Hero section</button>
+            <button class="block-item" draggable="true" data-block="text"><span class="block-icon">T</span>Text section</button>
+            <button class="block-item" draggable="true" data-block="image"><span class="block-icon">I</span>Image placeholder</button>
+            <button class="block-item" draggable="true" data-block="cta"><span class="block-icon">+</span>Call to action</button>
+          </div>
+          <div class="px-5 pb-5 pt-2 text-xs leading-relaxed text-slate-500">Tip: start with Hero, Text, and CTA for a simple portfolio page.</div>
+        </aside>
+
+        <div class="panel canvas-wrap">
+          <div class="canvas-toolbar"><span id="blockCount">0 blocks</span><button class="button button-soft !py-2 !px-3 !text-xs" id="clearCanvas">Reset</button></div>
+          <div class="canvas" id="canvas"><div class="site-preview" id="preview"><div class="empty-state"><div><strong>Start with a block</strong>Drag a section here to begin your page.</div></div></div></div>
+        </div>
+
+        <aside class="panel settings-panel" aria-label="Block settings">
+          <div class="panel-heading"><h2>Inspector</h2><span class="panel-subtitle" id="selectionLabel">none selected</span></div>
+          <div id="settingsEmpty" class="settings-empty">Select a block in your page to edit its content and link.</div>
+          <div id="settingsForm" class="settings hidden settings-form"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="activities shell" id="activities" aria-labelledby="activities-title">
+      <div class="section-heading"><div><div class="eyebrow">02 / Reset</div><h2 id="activities-title">Small activities for a clear mind.</h2></div><p>A few gentle browser toys for the space between ideas. No accounts, no tracking, no noise.</p></div>
+      <div class="activity-grid">
+        <article class="activity-card">
+          <div class="activity-icon">◌</div><h3>Breathing room</h3><p>Follow a slow four-count rhythm before you make the next decision.</p>
+          <div class="activity-output"><div class="breath-orb" id="breathOrb"></div><button class="button button-soft !py-2 !px-3 !text-xs" id="breathButton">Begin</button><span id="breathLabel">Ready</span></div>
+        </article>
+        <article class="activity-card">
+          <div class="activity-icon">◷</div><h3>Focus minute</h3><p>Give one tiny task sixty intentional seconds.</p>
+          <div class="activity-output"><span class="timer" id="timerLabel">01:00</span><button class="button button-soft !py-2 !px-3 !text-xs" id="timerButton">Start</button></div>
+        </article>
+        <article class="activity-card">
+          <div class="activity-icon">✦</div><h3>Memory garden</h3><p>Find the pairs. A small reset for attention.</p>
+          <div class="activity-output"><div class="memory-grid" id="memoryGrid"></div><button class="button button-soft !py-2 !px-3 !text-xs" id="memoryReset">New round</button></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">Built for thoughtful making. Exported sites belong to you.</footer>
+
+  <script>
+    const blocks = [];
+    let selectedId = null;
+    let draggedType = null;
+    const preview = document.getElementById('preview');
+    const canvas = document.getElementById('canvas');
+    const settingsForm = document.getElementById('settingsForm');
+    const settingsEmpty = document.getElementById('settingsEmpty');
+    const selectionLabel = document.getElementById('selectionLabel');
+    const blockCount = document.getElementById('blockCount');
+    const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[character]);
+    const makeId = () => `block-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const defaults = {
+      hero: { title: 'A thoughtful place on the web.', text: 'Introduce your work with a clear point of view and one memorable sentence.', button: 'Explore the work' },
+      text: { title: 'A little about this project', text: 'Tell people what you make, why it matters, and what you are learning along the way.' },
+      image: { title: 'Show the detail', text: 'Drop an image into your exported site later, or use this space as a visual pause.' },
+      cta: { title: 'Let’s make something useful.', text: 'Have an idea worth exploring?', button: 'Get in touch', link: 'mailto:hello@example.com' }
+    };
+    const templates = {
+      portfolio: ['hero', 'text', 'image', 'cta'],
+      blog: ['hero', 'text', 'text', 'cta'],
+      launch: ['hero', 'image', 'text', 'cta']
+    };
+
+    function addBlock(type) { blocks.push({ id: makeId(), type, ...defaults[type] }); selectedId = blocks.at(-1).id; render(); }
+    function loadTemplate(name) { blocks.length = 0; templates[name].forEach((type) => blocks.push({ id: makeId(), type, ...defaults[type] })); selectedId = blocks[0]?.id || null; render(); document.getElementById('builder').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    function removeBlock(id) { const index = blocks.findIndex((block) => block.id === id); if (index >= 0) blocks.splice(index, 1); selectedId = null; render(); }
+    function moveBlock(id, direction) { const index = blocks.findIndex((block) => block.id === id); const next = index + direction; if (next < 0 || next >= blocks.length) return; [blocks[index], blocks[next]] = [blocks[next], blocks[index]]; render(); }
+    function updateBlock(key, value) { const block = blocks.find((item) => item.id === selectedId); if (!block) return; block[key] = value; render(false); }
+    function blockMarkup(block) {
+      const controls = `<div class="block-actions"><button data-action="up" data-id="${block.id}" aria-label="Move block up">↑</button><button data-action="down" data-id="${block.id}" aria-label="Move block down">↓</button><button data-action="remove" data-id="${block.id}" aria-label="Remove block">×</button></div>`;
+      if (block.type === 'hero') return `<section class="site-block preview-hero ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p><button class="button button-blue mt-6">${escapeHtml(block.button)}</button></section>`;
+      if (block.type === 'text') return `<section class="site-block preview-text ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p></section>`;
+      if (block.type === 'image') return `<section class="site-block preview-image ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<div><span>${escapeHtml(block.title)}<br><small>${escapeHtml(block.text)}</small></span></div></section>`;
+      return `<section class="site-block preview-cta ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<div><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p></div><button class="button button-primary">${escapeHtml(block.button)}</button></section>`;
+    }
+    function render(showSettings = true) {
+      blockCount.textContent = `${blocks.length} ${blocks.length === 1 ? 'block' : 'blocks'}`;
+      preview.innerHTML = blocks.length ? blocks.map(blockMarkup).join('') : '<div class="empty-state"><div><strong>Start with a block</strong>Drag a section here to begin your page.</div></div>';
+      document.querySelectorAll('.site-block').forEach((element) => element.addEventListener('click', (event) => { if (!event.target.closest('.block-actions')) { selectedId = element.dataset.id; render(); } }));
+      document.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => { if (button.dataset.action === 'remove') removeBlock(button.dataset.id); else moveBlock(button.dataset.id, button.dataset.action === 'up' ? -1 : 1); }));
+      if (showSettings) renderSettings();
+    }
+    function renderSettings() {
+      const block = blocks.find((item) => item.id === selectedId);
+      if (!block) { settingsEmpty.classList.remove('hidden'); settingsForm.classList.add('hidden'); selectionLabel.textContent = 'none selected'; return; }
+      settingsEmpty.classList.add('hidden'); settingsForm.classList.remove('hidden'); selectionLabel.textContent = block.type;
+      const fields = [['title', 'Title', 'input'], ['text', 'Description', 'textarea']];
+      if (block.type === 'hero' || block.type === 'cta') fields.push(['button', 'Button label', 'input']);
+      if (block.type === 'cta') fields.push(['link', 'Button link', 'input']);
+      settingsForm.innerHTML = fields.map(([key, label, tag]) => `<div class="setting"><label for="setting-${key}">${label}</label><${tag} id="setting-${key}" data-setting="${key}" ${tag === 'input' ? 'type="text"' : ''}>${tag === 'textarea' ? escapeHtml(block[key]) : ''}</${tag}>`).join('');
+      fields.forEach(([key]) => { const field = document.getElementById(`setting-${key}`); if (field && field.tagName === 'INPUT') field.value = block[key] || ''; field?.addEventListener('input', () => updateBlock(key, field.value)); });
+    }
+    document.querySelectorAll('.block-item').forEach((item) => { item.addEventListener('dragstart', () => { draggedType = item.dataset.block; }); item.addEventListener('click', () => addBlock(item.dataset.block)); });
+    document.querySelectorAll('[data-template]').forEach((template) => template.addEventListener('click', () => loadTemplate(template.dataset.template)));
+    canvas.addEventListener('dragover', (event) => { event.preventDefault(); canvas.classList.add('drag-over'); });
+    canvas.addEventListener('dragleave', () => canvas.classList.remove('drag-over'));
+    canvas.addEventListener('drop', (event) => { event.preventDefault(); canvas.classList.remove('drag-over'); if (draggedType) addBlock(draggedType); draggedType = null; });
+    document.getElementById('clearCanvas').addEventListener('click', () => { blocks.length = 0; selectedId = null; render(); });
+
+    function exportFiles() {
+      if (!window.JSZip) { alert('The export library is still loading. Try again in a moment.'); return; }
+      const zip = new JSZip();
+      const page = blocks.length ? blocks.map((block) => blockMarkup({ ...block, id: '' }).replace(/<div class="block-actions">.*?<\/div>/, '')).join('\n') : '<main><h1>My new website</h1><p>Start creating something wonderful.</p></main>';
+      const html = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My new website</title><link rel="stylesheet" href="style.css"></head><body>${page}</body></html>`;
+      const css = `*{box-sizing:border-box}body{margin:0;color:#17181c;background:#f7f7f5;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif}main{max-width:960px;margin:0 auto;padding:80px 24px}section{margin:16px 0;border-radius:24px}h1,h2,h3{font-family:Montserrat,-apple-system,sans-serif;letter-spacing:-.05em}.preview-hero{padding:80px 30px;color:white;text-align:center;background:#101114}.preview-hero h3{font-size:clamp(32px,6vw,64px);margin:0 auto 16px}.preview-hero p,.preview-text p{max-width:600px;margin:0 auto;color:#aeb4c0;line-height:1.6}.preview-text{padding:48px 30px;text-align:center;background:white}.preview-text h3{font-size:34px}.preview-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px;background:#eaf3ff}.preview-cta h3{margin:0 0 6px}.preview-cta p{margin:0;color:#737781}.button{border:0;border-radius:999px;padding:13px 19px;font-weight:700}.button-primary,.button-blue{color:white;background:#147ef5}.preview-image{padding:30px;background:white}.preview-image div{min-height:220px;display:grid;place-items:center;text-align:center;color:#737781;border:1px dashed #c5cad2;border-radius:16px}`;
+      zip.file('index.html', html); zip.file('style.css', css); zip.generateAsync({ type: 'blob' }).then((blob) => { const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'my-website.zip'; link.click(); URL.revokeObjectURL(link.href); });
+    }
+    document.getElementById('exportTop').addEventListener('click', exportFiles);
+
+    let breathTimer;
+    document.getElementById('breathButton').addEventListener('click', () => { const orb = document.getElementById('breathOrb'); const label = document.getElementById('breathLabel'); if (breathTimer) { clearInterval(breathTimer); breathTimer = null; orb.classList.remove('breathing'); label.textContent = 'Ready'; return; } let phase = 0; const phases = ['Inhale', 'Hold', 'Exhale', 'Rest']; breathTimer = setInterval(() => { phase = (phase + 1) % 4; label.textContent = phases[phase]; orb.classList.toggle('breathing', phase === 0); }, 4000); label.textContent = 'Inhale'; orb.classList.add('breathing'); });
+    let seconds = 60; let timer;
+    const timerLabel = document.getElementById('timerLabel');
+    const timerButton = document.getElementById('timerButton');
+    function resetTimer() { clearInterval(timer); timer = null; seconds = 60; timerLabel.textContent = '01:00'; timerButton.textContent = 'Start'; }
+    timerButton.addEventListener('click', (event) => { if (seconds === 0) resetTimer(); if (timer) { clearInterval(timer); timer = null; event.target.textContent = 'Resume'; return; } event.target.textContent = 'Pause'; timer = setInterval(() => { seconds = Math.max(0, seconds - 1); timerLabel.textContent = `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`; if (!seconds) { clearInterval(timer); timer = null; event.target.textContent = 'Again'; } }, 1000); });
+    const memoryGrid = document.getElementById('memoryGrid');
+    function setupMemory() { const symbols = ['●', '●', '◆', '◆', '✦', '✦', '■', '■'].sort(() => Math.random() - .5); let open = []; let matched = []; memoryGrid.innerHTML = symbols.map((symbol, index) => `<button class="memory-card" data-index="${index}" data-symbol="${symbol}">?</button>`).join(''); memoryGrid.querySelectorAll('.memory-card').forEach((card) => card.addEventListener('click', () => { if (open.length === 2 || matched.includes(card.dataset.index) || open.includes(card.dataset.index)) return; card.textContent = card.dataset.symbol; card.classList.add('revealed'); open.push(card.dataset.index); if (open.length === 2) { const [first, second] = open.map((index) => memoryGrid.querySelector(`[data-index="${index}"]`)); if (first.dataset.symbol === second.dataset.symbol) { matched.push(...open); open = []; if (matched.length === symbols.length) document.getElementById('memoryReset').textContent = 'You did it'; } else setTimeout(() => { first.textContent = second.textContent = '?'; first.classList.remove('revealed'); second.classList.remove('revealed'); open = []; }, 650); } })); }
+    document.getElementById('memoryReset').addEventListener('click', setupMemory); setupMemory(); render();
+  </script>
+</body>
+</html>

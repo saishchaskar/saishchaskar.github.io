@@ -32,10 +32,15 @@ This portfolio is designed to:
 
 - Responsive layout for desktop and mobile
 - Dark, modern UI with accent gradients and animations
+- Apple-inspired light and dark themes with persistent theme preference
 - Project showcase with technology tags
 - Experience timeline and skill highlights
 - Contact section for direct outreach
 - Clean URLs for GitHub Pages routing
+- Create Studio with drag-and-drop starter site building
+- Browser-only export of generated HTML and CSS as a ZIP file
+- Guided builder workflow with portfolio, blog, and launch templates
+- Mindful activities including breathing, focus timing, and memory matching
 
 ## Project Structure
 
@@ -47,6 +52,8 @@ saishchaskar.github.io/
 ├── contact/
 │   └── index.html
 ├── skill/
+│   └── index.html
+├── create/
 │   └── index.html
 ├── assets/
 │   ├── css/
@@ -84,6 +91,7 @@ This project is configured for GitHub Pages with folder-based clean URLs. Pages 
 - https://saishchaskar.github.io/projects/
 - https://saishchaskar.github.io/contact/
 - https://saishchaskar.github.io/skill/
+- https://saishchaskar.github.io/create/
 
 ## Deployment
 
