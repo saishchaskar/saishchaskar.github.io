@@ -33,6 +33,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      - name: Build Studio app
+        run: npm ci --prefix studio-app && npm run build --prefix studio-app
+      - name: Publish Studio build at /studio/
+        run: rm -rf studio/* && cp -R studio-app/dist/. studio/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

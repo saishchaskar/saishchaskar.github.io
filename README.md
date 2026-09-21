@@ -26,6 +26,12 @@ This portfolio is designed to:
 - CSS3
 - JavaScript
 - Tailwind CSS (via CDN)
+- Vite + React + TypeScript (Studio workspace)
+- Zustand, Lucide React, and JSZip (Studio workspace)
+- Browser-local AI co-pilot with optional `VITE_AI_ENDPOINT` integration
+- English, Hindi, and Marathi content presets with global typography controls
+- 12 structured Studio templates for portfolios, blogs, and product pages
+- Local HTML template importer that maps common sections into editable blocks
 - GitHub Pages hosting
 
 ## Features
@@ -37,7 +43,7 @@ This portfolio is designed to:
 - Experience timeline and skill highlights
 - Contact section for direct outreach
 - Clean URLs for GitHub Pages routing
-- Create Studio with drag-and-drop starter site building
+- Studio with drag-and-drop starter site building
 - Browser-only export of generated HTML and CSS as a ZIP file
 - Guided builder workflow with portfolio, blog, and launch templates
 - Mindful activities including breathing, focus timing, and memory matching
@@ -53,7 +59,7 @@ saishchaskar.github.io/
 │   └── index.html
 ├── skill/
 │   └── index.html
-├── create/
+├── studio/
 │   └── index.html
 ├── assets/
 │   ├── css/
@@ -91,7 +97,23 @@ This project is configured for GitHub Pages with folder-based clean URLs. Pages 
 - https://saishchaskar.github.io/projects/
 - https://saishchaskar.github.io/contact/
 - https://saishchaskar.github.io/skill/
-- https://saishchaskar.github.io/create/
+- https://saishchaskar.github.io/studio/
+
+## Studio Development
+
+The advanced Studio is developed in `studio-app/` and published into the `/studio/` route by the GitHub Pages workflow.
+
+```bash
+cd studio-app
+npm install
+npm run dev
+```
+
+Create a production build with `npm run build`. The workflow builds the React app and copies its static output into `studio/` before deployment.
+
+### Template licensing
+
+Studio's built-in templates are original structured blueprints. Users can import external static HTML templates through the browser, but should only export or redistribute templates and assets whose licenses permit that use. MIT-licensed sources are generally suitable; Creative Commons sources may require attribution.
 
 ## Deployment
 

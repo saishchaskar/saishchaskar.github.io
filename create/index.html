@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Create a simple portfolio or blog with Saish's browser-based site builder.">
-  <title>Create | Saish Studio</title>
+  <meta name="description" content="Build and export a website with Saish Studio.">
+  <title>Studio | Saish Studio</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
@@ -104,6 +104,21 @@
     .activity-card h3 { margin: 22px 0 8px; font-size: 22px; }
     .activity-card p { min-height: 48px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
     .activity-icon { display: grid; width: 46px; height: 46px; place-items: center; color: var(--blue); background: #eaf3ff; border-radius: 15px; font-size: 22px; }
+    .studio-guide { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; padding: 24px; border: 1px solid var(--line); border-radius: 24px; background: rgba(255,255,255,.68); }
+    .demo-stage { position: relative; min-height: 190px; overflow: hidden; padding: 20px; background: #15171b; border-radius: 18px; color: white; }
+    .demo-stage::after { content: ''; position: absolute; left: 0; bottom: 0; width: var(--demo-progress, 0%); height: 3px; background: var(--blue); transition: width .4s linear; }
+    .demo-screen { display: none; animation: demo-in .35s ease both; }
+    .demo-screen.active { display: block; }
+    .demo-screen b { display: block; margin-bottom: 8px; font-family: Montserrat, sans-serif; font-size: 24px; }
+    .demo-screen span { color: #b8bec8; font-size: 14px; line-height: 1.5; }
+    .demo-dots { display: flex; gap: 6px; margin-top: 18px; }
+    .demo-dot { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #555b66; }
+    .demo-dot.active { background: #fff; }
+    .game-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+    .color-choice { height: 34px; border: 2px solid transparent; border-radius: 10px; }
+    .color-choice.selected { border-color: var(--ink); transform: scale(.92); }
+    .color-target { width: 42px; height: 42px; margin-left: auto; border-radius: 50%; background: #147ef5; }
+    @keyframes demo-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     .template-card { display: grid; gap: 5px; padding: 16px; color: var(--ink); background: rgba(255,255,255,.62); border: 1px solid var(--line); border-radius: 16px; transition: transform .2s ease, border .2s ease, box-shadow .2s ease; }
     .template-card:hover { transform: translateY(-3px); border-color: #9bc6ff; box-shadow: 0 10px 24px rgba(20,126,245,.1); }
     .template-card strong { font-family: Montserrat, sans-serif; font-size: 14px; }
@@ -128,7 +143,7 @@
     html[data-theme="dark"] .memory-card { color: transparent; background: #45474d; }
     html[data-theme="dark"] .memory-card.revealed { color: #70b7ff; background: rgba(41,151,255,.2); }
     @media (max-width: 980px) { .workspace { grid-template-columns: 210px minmax(0, 1fr); } .settings-panel { grid-column: 1 / -1; } .settings { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 700px) { .shell { width: min(100% - 24px, 560px); } .topbar { top: 8px; margin-top: 8px; } .topbar-inner { padding: 0 14px; } .topbar nav { display: none; } .hero { padding: 62px 0 48px; } .hero-copy { font-size: 17px; } .workspace { grid-template-columns: 1fr; } .canvas { padding: 12px; } .settings-panel { grid-column: auto; } .settings { grid-template-columns: 1fr; } .activity-grid { grid-template-columns: 1fr; } .section-heading { display: block; } .section-heading p { margin-top: 12px; } .preview-cta { display: block; } .preview-cta .button { margin-top: 18px; } }
+    @media (max-width: 700px) { .shell { width: min(100% - 24px, 560px); } .topbar { top: 8px; margin-top: 8px; } .topbar-inner { padding: 0 14px; } .topbar nav { display: none; } .hero { padding: 62px 0 48px; } .hero-copy { font-size: 17px; } .workspace { grid-template-columns: 1fr; } .canvas { padding: 12px; } .settings-panel { grid-column: auto; } .settings { grid-template-columns: 1fr; } .activity-grid { grid-template-columns: 1fr; } .section-heading { display: block; } .section-heading p { margin-top: 12px; } .preview-cta { display: block; } .preview-cta .button { margin-top: 18px; } .studio-guide { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -137,7 +152,7 @@
       <a class="brand" href="../">SAISH<span style="color:var(--blue)">.</span> STUDIO</a>
       <nav class="flex items-center gap-6" aria-label="Studio navigation">
         <a class="nav-link" href="../">Portfolio</a>
-        <a class="nav-link active" href="#builder">Create</a>
+        <a class="nav-link active" href="#builder">Studio</a>
         <a class="nav-link" href="#activities">Activities</a>
       </nav>
       <button class="button button-primary" id="exportTop">Export ZIP</button>
@@ -146,12 +161,19 @@
 
   <main>
     <section class="hero shell">
-      <div class="eyebrow">Saish Studio / Create</div>
+      <div class="eyebrow">Saish Studio / Build</div>
       <h1>Make something worth sharing.</h1>
       <p class="hero-copy">Build a quiet, polished starter site directly in your browser. Arrange a few purposeful blocks, tune the copy, then download clean HTML and CSS ready for GitHub Pages.</p>
       <div class="flex flex-wrap gap-3 mt-7">
         <a class="button button-primary" href="#builder">Open builder</a>
         <a class="button button-soft" href="#activities">Take a mindful pause</a>
+      </div>
+    </section>
+
+    <section class="shell mb-12" aria-labelledby="demo-title">
+      <div class="studio-guide">
+        <div><div class="eyebrow">30-second walkthrough</div><h2 id="demo-title" class="mt-2 text-3xl">See how a site comes together.</h2><p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-500">This short guided demo walks through the same four moves you will use: choose a template, arrange blocks, edit the copy, and export.</p><button class="button button-blue mt-5" id="demoButton">Play demo</button></div>
+        <div class="demo-stage" id="demoStage" aria-live="polite"><div class="demo-screen active"><b>Choose a starting point</b><span>Pick a template that matches your idea.</span></div><div class="demo-screen"><b>Compose your page</b><span>Drag blocks into the canvas or tap to add them.</span></div><div class="demo-screen"><b>Make it yours</b><span>Select a section and tune the words in the inspector.</span></div><div class="demo-screen"><b>Export and publish</b><span>Download the ZIP, push it to GitHub, and turn on Pages.</span></div><div class="demo-dots"><button class="demo-dot active" aria-label="Demo step 1"></button><button class="demo-dot" aria-label="Demo step 2"></button><button class="demo-dot" aria-label="Demo step 3"></button><button class="demo-dot" aria-label="Demo step 4"></button></div></div>
       </div>
     </section>
 
@@ -187,6 +209,9 @@
             <button class="block-item" draggable="true" data-block="text"><span class="block-icon">T</span>Text section</button>
             <button class="block-item" draggable="true" data-block="image"><span class="block-icon">I</span>Image placeholder</button>
             <button class="block-item" draggable="true" data-block="cta"><span class="block-icon">+</span>Call to action</button>
+            <button class="block-item" draggable="true" data-block="cards"><span class="block-icon">▦</span>Project cards</button>
+            <button class="block-item" draggable="true" data-block="quote"><span class="block-icon">“</span>Quote section</button>
+            <button class="block-item" draggable="true" data-block="footer"><span class="block-icon">F</span>Footer</button>
           </div>
           <div class="px-5 pb-5 pt-2 text-xs leading-relaxed text-slate-500">Tip: start with Hero, Text, and CTA for a simple portfolio page.</div>
         </aside>
@@ -219,6 +244,11 @@
           <div class="activity-icon">✦</div><h3>Memory garden</h3><p>Find the pairs. A small reset for attention.</p>
           <div class="activity-output"><div class="memory-grid" id="memoryGrid"></div><button class="button button-soft !py-2 !px-3 !text-xs" id="memoryReset">New round</button></div>
         </article>
+        <article class="activity-card">
+          <div class="activity-icon">◉</div><h3>Color sprint</h3><p>Remember the target color and find its match before the clock runs out.</p>
+          <div class="activity-output"><div class="color-target" id="colorTarget"></div><span class="timer" id="colorScore">0</span></div>
+          <div class="game-grid" id="colorChoices"></div>
+        </article>
       </div>
     </section>
   </main>
@@ -241,12 +271,15 @@
       hero: { title: 'A thoughtful place on the web.', text: 'Introduce your work with a clear point of view and one memorable sentence.', button: 'Explore the work' },
       text: { title: 'A little about this project', text: 'Tell people what you make, why it matters, and what you are learning along the way.' },
       image: { title: 'Show the detail', text: 'Drop an image into your exported site later, or use this space as a visual pause.' },
-      cta: { title: 'Let’s make something useful.', text: 'Have an idea worth exploring?', button: 'Get in touch', link: 'mailto:hello@example.com' }
+      cta: { title: 'Let’s make something useful.', text: 'Have an idea worth exploring?', button: 'Get in touch', link: 'mailto:hello@example.com' },
+      cards: { title: 'Selected work', text: 'A clear grid for projects, case studies, or favorite links.' },
+      quote: { title: '“Make the complex feel inevitable.”', text: 'A short statement that gives your work a point of view.' },
+      footer: { title: 'Thanks for stopping by.', text: 'Built with care on the open web.' }
     };
     const templates = {
       portfolio: ['hero', 'text', 'image', 'cta'],
       blog: ['hero', 'text', 'text', 'cta'],
-      launch: ['hero', 'image', 'text', 'cta']
+      launch: ['hero', 'image', 'cards', 'cta']
     };
 
     function addBlock(type) { blocks.push({ id: makeId(), type, ...defaults[type] }); selectedId = blocks.at(-1).id; render(); }
@@ -259,6 +292,9 @@
       if (block.type === 'hero') return `<section class="site-block preview-hero ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p><button class="button button-blue mt-6">${escapeHtml(block.button)}</button></section>`;
       if (block.type === 'text') return `<section class="site-block preview-text ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p></section>`;
       if (block.type === 'image') return `<section class="site-block preview-image ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<div><span>${escapeHtml(block.title)}<br><small>${escapeHtml(block.text)}</small></span></div></section>`;
+      if (block.type === 'cards') return `<section class="site-block preview-text ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p><div class="mt-6 grid grid-cols-3 gap-2"><div class="h-20 rounded-xl bg-slate-100"></div><div class="h-20 rounded-xl bg-slate-100"></div><div class="h-20 rounded-xl bg-slate-100"></div></div></section>`;
+      if (block.type === 'quote') return `<section class="site-block preview-text ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p></section>`;
+      if (block.type === 'footer') return `<footer class="site-block preview-text ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<p><strong>${escapeHtml(block.title)}</strong><br>${escapeHtml(block.text)}</p></footer>`;
       return `<section class="site-block preview-cta ${selectedId === block.id ? 'selected' : ''}" data-id="${block.id}">${controls}<div><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.text)}</p></div><button class="button button-primary">${escapeHtml(block.button)}</button></section>`;
     }
     function render(showSettings = true) {
@@ -295,6 +331,9 @@
     }
     document.getElementById('exportTop').addEventListener('click', exportFiles);
 
+    let demoTimer;
+    document.getElementById('demoButton').addEventListener('click', (event) => { let step = 0; clearInterval(demoTimer); event.target.textContent = 'Replay demo'; const screens = document.querySelectorAll('.demo-screen'); const dots = document.querySelectorAll('.demo-dot'); const stage = document.getElementById('demoStage'); const show = () => { screens.forEach((screen, index) => screen.classList.toggle('active', index === step)); dots.forEach((dot, index) => dot.classList.toggle('active', index === step)); stage.style.setProperty('--demo-progress', `${((step + 1) / screens.length) * 100}%`); step = (step + 1) % screens.length; }; show(); demoTimer = setInterval(show, 7500); });
+
     let breathTimer;
     document.getElementById('breathButton').addEventListener('click', () => { const orb = document.getElementById('breathOrb'); const label = document.getElementById('breathLabel'); if (breathTimer) { clearInterval(breathTimer); breathTimer = null; orb.classList.remove('breathing'); label.textContent = 'Ready'; return; } let phase = 0; const phases = ['Inhale', 'Hold', 'Exhale', 'Rest']; breathTimer = setInterval(() => { phase = (phase + 1) % 4; label.textContent = phases[phase]; orb.classList.toggle('breathing', phase === 0); }, 4000); label.textContent = 'Inhale'; orb.classList.add('breathing'); });
     let seconds = 60; let timer;
@@ -305,6 +344,9 @@
     const memoryGrid = document.getElementById('memoryGrid');
     function setupMemory() { const symbols = ['●', '●', '◆', '◆', '✦', '✦', '■', '■'].sort(() => Math.random() - .5); let open = []; let matched = []; memoryGrid.innerHTML = symbols.map((symbol, index) => `<button class="memory-card" data-index="${index}" data-symbol="${symbol}">?</button>`).join(''); memoryGrid.querySelectorAll('.memory-card').forEach((card) => card.addEventListener('click', () => { if (open.length === 2 || matched.includes(card.dataset.index) || open.includes(card.dataset.index)) return; card.textContent = card.dataset.symbol; card.classList.add('revealed'); open.push(card.dataset.index); if (open.length === 2) { const [first, second] = open.map((index) => memoryGrid.querySelector(`[data-index="${index}"]`)); if (first.dataset.symbol === second.dataset.symbol) { matched.push(...open); open = []; if (matched.length === symbols.length) document.getElementById('memoryReset').textContent = 'You did it'; } else setTimeout(() => { first.textContent = second.textContent = '?'; first.classList.remove('revealed'); second.classList.remove('revealed'); open = []; }, 650); } })); }
     document.getElementById('memoryReset').addEventListener('click', setupMemory); setupMemory(); render();
+    const colorChoices = document.getElementById('colorChoices'); const colorTarget = document.getElementById('colorTarget'); const colorScore = document.getElementById('colorScore'); const colors = ['#147ef5', '#ff375f', '#30d158', '#ff9f0a']; let score = 0;
+    function setupColorSprint() { const target = colors[Math.floor(Math.random() * colors.length)]; colorTarget.style.background = target; colorChoices.innerHTML = colors.sort(() => Math.random() - .5).map((color) => `<button class="color-choice" style="background:${color}" data-color="${color}" aria-label="Choose color"></button>`).join(''); colorChoices.querySelectorAll('.color-choice').forEach((choice) => choice.addEventListener('click', () => { if (choice.dataset.color === target) { score += 1; colorScore.textContent = score; setupColorSprint(); } else { score = Math.max(0, score - 1); colorScore.textContent = score; choice.classList.add('selected'); setTimeout(() => choice.classList.remove('selected'), 300); } })); }
+    setupColorSprint();
   </script>
 </body>
 </html>
