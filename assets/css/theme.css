@@ -1,5 +1,10 @@
 /* Shared Apple-inspired portfolio theme */
 :root {
+  --font-body: 'Karla', sans-serif;
+  --font-display: 'Cormorant', serif;
+  --font-navigation: 'Overpass', sans-serif;
+  --font-controls: 'Nunito', sans-serif;
+  --font-handwritten: 'Edu SA Beginner', cursive;
   --site-bg: #f5f5f7;
   --site-surface: rgba(255, 255, 255, 0.78);
   --site-card: rgba(255, 255, 255, 0.88);
@@ -26,8 +31,31 @@ html[data-theme="dark"] {
 body {
   background-color: var(--site-bg) !important;
   color: var(--site-text) !important;
+  font-family: var(--font-body);
   transition: background-color .35s ease, color .35s ease, opacity .4s ease-in-out, transform .4s ease-in-out;
   will-change: opacity, transform;
+}
+
+h1,
+h2,
+h3,
+.font-heading {
+  font-family: var(--font-display);
+}
+
+header nav a {
+  font-family: var(--font-navigation);
+}
+
+button,
+a[class*="rounded-"][class*="font-semibold"],
+a[class*="rounded-"][class*="font-bold"],
+.project-card a {
+  font-family: var(--font-controls);
+}
+
+.font-note {
+  font-family: var(--font-handwritten);
 }
 
 body.is-entering {

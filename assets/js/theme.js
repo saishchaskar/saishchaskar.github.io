@@ -30,29 +30,9 @@
     target.appendChild(button);
   }
 
-  function setupStudioTransitions() {
-    if (!document.querySelector('.topbar')) return;
-    document.body.classList.add('is-entering');
-    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.remove('is-entering')));
-
-    document.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        const target = link.href;
-        const isInternal = target.startsWith(window.location.origin) || target.startsWith('./') || target.startsWith('../');
-        const isNewTab = link.target === '_blank';
-        const isAnchor = target.includes('#');
-        if (!isInternal || isNewTab || isAnchor) return;
-        event.preventDefault();
-        document.body.classList.add('is-exiting');
-        setTimeout(() => { window.location.href = target; }, 400);
-      });
-    });
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { addToggle(); setupStudioTransitions(); });
+    document.addEventListener('DOMContentLoaded', addToggle);
   } else {
     addToggle();
-    setupStudioTransitions();
   }
 })();
