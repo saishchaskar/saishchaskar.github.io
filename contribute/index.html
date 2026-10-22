@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore farmer-centered AgriTech challenges across India and contribute to AgroConnect-PWA.">
+  <title>Contribute | Saish Chaskar</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Karla', 'sans-serif'],
+            heading: ['Cormorant', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Edu+SA+Beginner:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/require.css">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=20261022-6">
+  <link rel="stylesheet" href="../assets/css/pages/contribute.css">
+  <style>
+    html { font-size: 14px !important; }
+    #mobile-menu { transition: max-height .3s ease-in-out, opacity .3s ease-in-out; }
+    header { transition: transform .28s ease, opacity .28s ease, visibility .28s ease; }
+    header.nav-hidden { transform: translateY(-140%); opacity: 0; visibility: hidden; pointer-events: none; }
+    header.nav-visible { transform: translateY(0); opacity: 1; visibility: visible; }
+  </style>
+  <script src="../assets/js/theme.js"></script>
+</head>
+
+<body class="bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+  <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 nav-visible">
+    <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.45)]">
+      <div class="container mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
+        <a href="../" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">Saish.</a>
+        <nav class="hidden md:flex items-center gap-7" aria-label="Primary navigation">
+          <a href="../" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Home</a>
+          <a href="../skill/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Experience & Skills</a>
+          <a href="../projects/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Projects</a>
+          <a href="./" aria-current="page" class="text-lg font-semibold text-cyan-300 border-b-2 border-cyan-400 pb-1">Contribute</a>
+          <a href="../contact/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contact</a>
+        </nav>
+        <a href="https://github.com/saishchaskar/AgroConnect-PWA" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:-translate-y-0.5 transition-all">
+          <ion-icon name="logo-github" aria-hidden="true"></ion-icon> Build with us
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-4xl text-white focus:outline-none" type="button">
+          <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden mx-auto mt-3 max-w-[92%] max-h-0 opacity-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl">
+      <nav class="flex flex-col p-6 space-y-4 text-center" aria-label="Mobile navigation">
+        <a href="../" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Home</a>
+        <a href="../skill/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Experience</a>
+        <a href="../projects/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Projects</a>
+        <a href="./" aria-current="page" class="text-xl font-semibold text-cyan-300">Contribute</a>
+        <a href="../contact/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
+        <a href="https://github.com/saishchaskar/AgroConnect-PWA" target="_blank" rel="noopener noreferrer" class="text-xl font-semibold text-cyan-300">Open AgroConnect on GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contribute-page pt-36 pb-20">
+    <section class="container mx-auto px-6 max-w-7xl">
+      <div class="contribute-hero grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center">
+        <div class="max-w-3xl">
+          <p class="eyebrow">AgroConnect · Open collaboration</p>
+          <h1 class="font-heading text-6xl md:text-8xl font-bold leading-[.95] mb-7">Build for the <span>people behind our food.</span></h1>
+          <p class="text-xl md:text-2xl text-slate-400 leading-relaxed max-w-2xl">
+            Indian agriculture is not one problem or one climate. Explore state-by-state crop examples and technology questions, find a useful first task, and help shape AgroConnect with farmer needs in view.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-9">
+            <a class="contribute-primary" href="#regional-work">Explore the map <ion-icon name="arrow-down-outline" aria-hidden="true"></ion-icon></a>
+            <a class="contribute-secondary" href="https://github.com/saishchaskar/AgroConnect-PWA" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" aria-hidden="true"></ion-icon> View the project</a>
+          </div>
+          <p class="text-sm text-slate-400 mt-5">Research is a starting point for questions—not a substitute for local farmer knowledge or agronomic advice.</p>
+        </div>
+
+        <div class="map-panel" role="group" aria-label="Interactive India state and union territory map with crop examples">
+          <div class="map-panel-heading">
+            <span>FIELD NOTES / INDIA</span>
+            <span class="map-live" id="map-status" role="status"><span aria-hidden="true"></span><span id="map-status-text">Loading state map…</span></span>
+          </div>
+          <div class="map-zoom-controls" role="group" aria-label="India map zoom controls">
+            <button type="button" id="map-zoom-in" aria-label="Zoom in on the India map" disabled>+</button>
+            <button type="button" id="map-zoom-out" aria-label="Zoom out on the India map" disabled>−</button>
+            <button type="button" id="map-zoom-reset" disabled>Reset</button>
+          </div>
+          <div class="india-map-wrap" id="india-map-wrap">
+            <div class="india-map-root" id="india-map-root"></div>
+          </div>
+          <p class="map-key"><span aria-hidden="true">🌾</span> One crop example is marked per state/UT; select it for more context.</p>
+          <section class="map-insight" id="map-insight" aria-live="polite" aria-atomic="true">
+            <p class="insight-kicker">STATE / UNION TERRITORY LENS</p>
+            <h3 id="insight-title">Choose a state on the map</h3>
+            <p class="insight-crops-label">Crop examples to explore · not ranked</p>
+            <ul class="insight-crops" id="insight-crops"></ul>
+            <p class="insight-problem" id="insight-problem">Hover, focus, or select a state to see a locally framed technology question.</p>
+            <p class="insight-build" id="insight-build"></p>
+            <div class="insight-evidence">
+              <p class="evidence-label">Official Rabi sowing note · 16 Oct 2026</p>
+              <p id="insight-crop-fact">Choose a state to see whether the Ministry bulletin includes a state-specific note.</p>
+              <a href="https://agriwelfare.gov.in/Documents/Crops1.pdf" target="_blank" rel="noopener noreferrer">Read the crop bulletin <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+              <p class="evidence-label">CWC reservoir region · 15 Oct 2026</p>
+              <p id="insight-water-fact">Choose a state to see its CWC monitoring-region comparison, where reported.</p>
+              <a href="https://agriwelfare.gov.in/Documents/Reservoir.pdf" target="_blank" rel="noopener noreferrer">Read the reservoir bulletin <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+              <p class="evidence-label">IMD observed rainfall · bulletin issued 19 Oct 2026</p>
+              <p id="insight-weather-fact">Choose a state to see whether a dated observation from this bulletin is relevant.</p>
+              <a href="https://agriwelfare.gov.in/Documents/Rainfall.pdf" target="_blank" rel="noopener noreferrer">Read the IMD weather bulletin <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+            </div>
+            <a class="insight-link" href="#contribution-ideas">Explore a contribution path <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+          </section>
+          <p class="map-disclaimer">State/UT outlines: source-vintage map (primarily 2019), not a legal boundary reference. Crop examples are illustrative—not ranked or live data; validate with local sources.</p>
+        </div>
+      </div>
+
+      <nav class="fieldwork-nav" aria-label="Contribute page guide">
+        <a href="#official-snapshots"><span>01</span> Official snapshots</a>
+        <a href="#regional-work"><span>02</span> Explore context</a>
+        <a href="#contribution-ideas"><span>03</span> Find a build path</a>
+        <a href="#github-workflow"><span>04</span> Start contributing</a>
+        <a href="#field-sources"><span>05</span> Read the sources</a>
+      </nav>
+    </section>
+
+    <section id="official-snapshots" class="container mx-auto px-6 max-w-7xl section-block">
+      <div class="section-heading">
+        <p class="eyebrow">01 / Dated official evidence</p>
+        <h2 class="font-heading text-5xl md:text-6xl font-bold text-white">A field snapshot, not a live dashboard.</h2>
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl">Figures below are transcribed from Government of India reports published in October 2026. Each comparison is date-matched where the source provides it; early-season sowing is not a yield forecast, and monitored reservoir storage is not a measure of water available to an individual farm.</p>
+      </div>
+      <div class="snapshot-grid">
+        <article class="snapshot-card" data-reveal>
+          <p class="snapshot-label">ALL REPORTED RABI CROPS</p>
+          <p class="snapshot-value">3.43 <span>lakh ha</span></p>
+          <p>Area sown by 16 Oct 2026, versus 4.65 lakh ha at the same point in 2025: <strong>1.22 lakh ha lower</strong>.</p>
+          <small>Early-season area snapshot · not final area or production</small>
+          <a href="https://agriwelfare.gov.in/Documents/Crops1.pdf" target="_blank" rel="noopener noreferrer">Ministry CWWG crop bulletin · 16 Oct 2026 <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="snapshot-card" data-reveal>
+          <p class="snapshot-label">RABI RICE</p>
+          <p class="snapshot-value">0.88 <span>lakh ha</span></p>
+          <p>Reported area sown by 16 Oct, compared with 1.34 lakh ha on the same date in 2025. Sowing had commenced in Kerala and Tamil Nadu.</p>
+          <small>Change at this snapshot: −0.46 lakh ha</small>
+          <a href="https://agriwelfare.gov.in/Documents/Crops1.pdf" target="_blank" rel="noopener noreferrer">See crop table and reporting notes <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="snapshot-card" data-reveal>
+          <p class="snapshot-label">RABI OILSEEDS</p>
+          <p class="snapshot-value">2.29 <span>lakh ha</span></p>
+          <p>Reported area sown by 16 Oct, compared with 3.11 lakh ha at the same point in 2025. The report lists mustard and groundnut sowing in Tamil Nadu.</p>
+          <small>Change at this snapshot: −0.82 lakh ha</small>
+          <a href="https://agriwelfare.gov.in/Documents/Crops1.pdf" target="_blank" rel="noopener noreferrer">See crop table and reporting notes <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="snapshot-card" data-reveal>
+          <p class="snapshot-label">178 CWC-MONITORED RESERVOIRS</p>
+          <p class="snapshot-value">126.717 <span>BCM</span></p>
+          <p>Live storage on 15 Oct 2026 was 68.58% of monitored capacity, 83.56% of normal storage, and 75.47% of the same-period level last year.</p>
+          <small>Reservoir sample · not a state-wide or farm-level water estimate</small>
+          <a href="https://agriwelfare.gov.in/Documents/Reservoir.pdf" target="_blank" rel="noopener noreferrer">CWC weekly reservoir bulletin · 15 Oct 2026 <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+      </div>
+      <div class="snapshot-table-wrap">
+        <table class="snapshot-table">
+          <caption>Live storage as a share of monitored reservoir capacity · 15 Oct 2026</caption>
+          <thead>
+            <tr><th scope="col">CWC region</th><th scope="col">Current</th><th scope="col">Normal for date</th><th scope="col">Interpretation from bulletin</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">North</th><td>57.33%</td><td>79.31%</td><td>Below normal</td></tr>
+            <tr><th scope="row">East</th><td>79.89%</td><td>80.84%</td><td>Below normal</td></tr>
+            <tr><th scope="row">West</th><td>80.73%</td><td>86.91%</td><td>Below normal</td></tr>
+            <tr><th scope="row">Central</th><td>86.36%</td><td>85.15%</td><td>Above normal</td></tr>
+            <tr><th scope="row">South</th><td>44.31%</td><td>77.54%</td><td>Below normal</td></tr>
+          </tbody>
+        </table>
+        <p class="snapshot-note">The Ministry’s crop bulletin reports that Rabi wheat sowing had not yet commenced by 16 Oct. That is a dated, early-season status—not evidence of a shortfall. Read the source bulletin for definitions, crop rows, and reporting caveats.</p>
+        <p class="snapshot-weather"><strong>Dated IMD observation:</strong> the bulletin issued 19 Oct recorded 12 cm at Guna, Madhya Pradesh, during the 24 hours ending 05:30 IST that morning, and isolated heavy-to-very-heavy rain in West Madhya Pradesh. This is a past observation, not a current alert or forecast. <a href="https://agriwelfare.gov.in/Documents/Rainfall.pdf" target="_blank" rel="noopener noreferrer">Read the bulletin <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a></p>
+      </div>
+    </section>
+
+    <section id="regional-work" class="container mx-auto px-6 max-w-7xl section-block">
+      <div class="section-heading">
+        <p class="eyebrow">02 / Regional lenses</p>
+        <h2 class="font-heading text-5xl md:text-6xl font-bold text-white">Different places. Different constraints.</h2>
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl">Choose a regional lens below. The state map above pairs crop examples with a technology question; these prompts are design hypotheses, not measured risks or agronomic advice. Conditions vary within every region.</p>
+      </div>
+      <div class="region-controls" role="group" aria-label="Filter regional problem statements">
+        <button type="button" data-region-select="all" aria-pressed="true">All lenses</button>
+        <button type="button" data-region-select="north" aria-pressed="false">North & northwest</button>
+        <button type="button" data-region-select="east" aria-pressed="false">East & northeast</button>
+        <button type="button" data-region-select="central" aria-pressed="false">Central & Deccan</button>
+        <button type="button" data-region-select="south" aria-pressed="false">South</button>
+      </div>
+      <div class="challenge-grid">
+        <article class="challenge-card" data-region="north central" data-reveal>
+          <p class="challenge-region">NORTH / CENTRAL · WATER & WEATHER</p>
+          <h3>Can advice arrive before the next stressful season?</h3>
+          <p>Heat, rainfall variability, and water availability affect planting and crop-health decisions differently from district to district. How might a low-bandwidth tool combine timely forecasts with crop-specific, locally reviewed guidance?</p>
+          <div class="challenge-tags"><span>Weather literacy</span><span>Water stewardship</span><span>Offline access</span></div>
+          <a href="#contribution-ideas">Explore a build path <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="challenge-card" data-region="east" data-reveal>
+          <p class="challenge-region">EAST / NORTHEAST · ACCESS & CONNECTIVITY</p>
+          <h3>What still works when the signal does not?</h3>
+          <p>Farm tools must fit varied connectivity, device, and language contexts. How can diagnosis, saved guidance, and retry flows stay understandable when a connection is slow or unavailable?</p>
+          <div class="challenge-tags"><span>Resilient PWA</span><span>Local languages</span><span>Accessible UX</span></div>
+          <a href="#contribution-ideas">Explore a build path <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="challenge-card" data-region="central south" data-reveal>
+          <p class="challenge-region">CENTRAL / DECCAN · CROP HEALTH</p>
+          <h3>Can a model explain uncertainty—not just name a disease?</h3>
+          <p>Image-based predictions should be tested across crops, growth stages, lighting, and field conditions. How can AgroConnect show confidence, ask for a clearer image, and cite reviewed sources instead of overstating a diagnosis?</p>
+          <div class="challenge-tags"><span>Model evaluation</span><span>Human review</span><span>Grounded RAG</span></div>
+          <a href="#contribution-ideas">Explore a build path <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+        <article class="challenge-card" data-region="north east south central" data-reveal>
+          <p class="challenge-region">ACROSS REGIONS · TRUST & DECISION SUPPORT</p>
+          <h3>Can farmers verify where a recommendation came from?</h3>
+          <p>Crop and treatment advice needs provenance, clear limits, and local validation. How might a multilingual assistant show its sources and direct people to qualified local support when evidence is incomplete?</p>
+          <div class="challenge-tags"><span>Source transparency</span><span>Expert review</span><span>Farmer feedback</span></div>
+          <a href="#contribution-ideas">Explore a build path <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+        </article>
+      </div>
+      <p class="filter-empty" hidden>No discussion lens is tagged for this region yet. Choose “All lenses” to explore current ideas.</p>
+    </section>
+
+    <section id="contribution-ideas" class="container mx-auto px-6 max-w-7xl section-block">
+      <div class="section-heading">
+        <p class="eyebrow">02 / Ways to build</p>
+        <h2 class="font-heading text-5xl md:text-6xl font-bold text-white">Small, useful contributions count.</h2>
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl">AgroConnect-PWA is a public starter project for crop-disease guidance. Pick an area that matches your skills—or help us ask better questions first.</p>
+      </div>
+      <div class="contribution-grid">
+        <article class="contribution-card"><span>01 / FIELD-READY</span><h3>Make the PWA resilient</h3><p>Improve installability, offline flows, retry states, and performance on mobile connections.</p><a href="https://github.com/saishchaskar/AgroConnect-PWA/issues/new?title=Improve%20offline-first%20diagnosis%20experience" target="_blank" rel="noopener noreferrer">Propose an offline improvement <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a></article>
+        <article class="contribution-card"><span>02 / RESPONSIBLE AI</span><h3>Evaluate crop-health guidance</h3><p>Help document datasets, test model performance across conditions, and make prediction limits clear.</p><a href="https://github.com/saishchaskar/AgroConnect-PWA/issues/new?title=Improve%20crop%20disease%20model%20evaluation" target="_blank" rel="noopener noreferrer">Propose an evaluation task <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a></article>
+        <article class="contribution-card"><span>03 / TRUSTED ANSWERS</span><h3>Strengthen RAG and sources</h3><p>Improve retrieval, cite reviewed agriculture references, and define what the assistant should do when evidence is missing.</p><a href="https://github.com/saishchaskar/AgroConnect-PWA/issues/new?title=Improve%20source-grounded%20agriculture%20guidance" target="_blank" rel="noopener noreferrer">Propose a guidance task <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a></article>
+        <article class="contribution-card"><span>04 / ACCESS FOR MORE PEOPLE</span><h3>Localize and simplify</h3><p>Explore language support, plain-language content, accessible controls, and inclusive field research.</p><a href="https://github.com/saishchaskar/AgroConnect-PWA/issues/new?title=Improve%20multilingual%20farmer%20experience" target="_blank" rel="noopener noreferrer">Propose an accessibility task <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a></article>
+      </div>
+      <div class="project-backlog">
+        <div><p class="eyebrow">Backlog status</p><h3>Ideas are not live GitHub issues yet.</h3><p>The repository contains a suggested backlog and contributor guide. Check the issue tracker before starting, and open a discussion if you want to shape a proposal.</p></div>
+        <a href="https://github.com/saishchaskar/AgroConnect-PWA/blob/main/GITHUB_ISSUES.md" target="_blank" rel="noopener noreferrer">Read suggested backlog <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+      </div>
+    </section>
+
+    <section id="github-workflow" class="container mx-auto px-6 max-w-7xl section-block">
+      <div class="github-panel">
+        <div>
+          <p class="eyebrow">03 / Open source workflow</p>
+          <h2 class="font-heading text-5xl md:text-6xl font-bold text-white mb-5">Pick an idea. Build it together.</h2>
+          <p class="text-lg text-slate-300 max-w-2xl">This portfolio does not ask for GitHub credentials. Issue and repository links open GitHub, where you can sign in, review the project, and submit your contribution directly.</p>
+        </div>
+        <div class="github-actions">
+          <a href="https://github.com/saishchaskar/AgroConnect-PWA" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" aria-hidden="true"></ion-icon> Explore repository</a>
+          <a href="https://github.com/saishchaskar/AgroConnect-PWA/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Read contribution guide <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+          <a href="https://github.com/saishchaskar/AgroConnect-PWA/issues" target="_blank" rel="noopener noreferrer">Check live issues <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+          <a href="https://github.com/saishchaskar/AgroConnect-PWA/issues/new/choose" target="_blank" rel="noopener noreferrer">Open an issue on GitHub <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="field-sources" class="container mx-auto px-6 max-w-7xl section-block">
+      <div class="section-heading">
+        <p class="eyebrow">04 / Further reading</p>
+        <h2 class="font-heading text-5xl md:text-6xl font-bold text-white">Indian sources to check the context.</h2>
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl">These are official Indian agriculture, weather, scheme, and market portals. The dated October 2026 figures above are static report snapshots, not live data feeds.</p>
+      </div>
+      <div class="research-scope">
+        <h3>How to read this page</h3>
+        <p>The map pairs 36 state/UT crop examples and technology prompts with official Rabi sowing notes where the Ministry bulletin names a state, plus a CWC reservoir-region comparison where that state is covered. A missing state note means only that the cited bulletin did not list one; it does not mean there was no sowing or water concern.</p>
+        <p><strong>Research limit:</strong> the map’s crop examples are not yet reconciled state-by-state against a named official production year, so they are not rankings or measured local crop profiles. The page has no live crop statistics, market prices, weather alerts, scheme eligibility, or farmer-survey results. Validate product ideas with local farmers and extension experts.</p>
+        <ul class="research-insights">
+          <li><strong>Weather:</strong> show the locality, issue time, and validity of an official advisory; do not present a state-level prompt as a forecast.</li>
+          <li><strong>Statistics and markets:</strong> keep crop year, market, commodity, units, and reporting date attached to every figure; early sowing area is not production.</li>
+          <li><strong>Schemes:</strong> link to official eligibility and application guidance; never imply that a user qualifies based on a map selection.</li>
+          <li><strong>Crop-health AI:</strong> expose uncertainty and source provenance, and provide a path to local expert review.</li>
+        </ul>
+      </div>
+      <div class="sources-grid" id="source-list"></div>
+      <p class="source-attribution">State and union-territory boundary geometry is redistributed under the upstream MIT license; see <a href="../assets/maps/THIRD_PARTY_NOTICES.md">map attribution and source vintage</a>. The boundaries are not authoritative legal determinations. Crop examples and problem statements are discussion prompts—not current production rankings, risk data, or a substitute for farmer and agronomist validation.</p>
+    </section>
+  </main>
+
+  <footer class="py-8 bg-[#0f172a] border-t border-white/10">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-slate-400 text-lg">&copy; 2026 Saish Chaskar. All rights reserved.</p>
+      <a href="../" class="text-slate-300 hover:text-cyan-400">Back to portfolio <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon></a>
+    </div>
+  </footer>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../assets/js/contribute-region-data.js"></script>
+  <script src="../assets/js/contribute.js"></script>
+  <script src="../assets/js/enhancements.js?v=20261022-5"></script>
+</body>
+</html>

@@ -52,7 +52,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Edu+SA+Beginner:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="./assets/css/require.css">
-  <link rel="stylesheet" href="./assets/css/theme.css">
+  <link rel="stylesheet" href="./assets/css/theme.css?v=20261022-6">
   <script src="./assets/js/theme.js"></script>
   
   <style>
@@ -101,19 +101,20 @@
   </style>
 </head>
 
-<body class="bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+<body class="home-page bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
 
   <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 nav-visible">
     <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.45)]">
       <div class="container mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="./" class="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
-          SAISH.
+        <a href="./" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
+          Saish.
         </a>
 
         <nav class="hidden md:flex items-center gap-8">
           <a href="./" class="text-lg font-medium text-cyan-400 transition-colors">Home</a>
           <a href="./skill/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Experience & Skills</a>
           <a href="./projects/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Projects</a>
+          <a href="./contribute/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contribute</a>
           <a href="./contact/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contact</a>
         </nav>
 
@@ -132,6 +133,7 @@
         <a href="./" class="text-2xl font-medium text-cyan-400">Home</a>
         <a href="./skill/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Experience</a>
         <a href="./projects/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Projects</a>
+        <a href="./contribute/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Contribute</a>
         <a href="./contact/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
       </nav>
     </div>
@@ -159,15 +161,16 @@
               Scalable Solutions
             </span>
           </h1>
+<p class="hero-intro text-2xl text-slate-400 max-w-xl mx-auto md:mx-0 leading-relaxed">
+    Hi, I'm <strong class="text-white font-note">Saish Chaskar</strong> — a Full Stack Engineer building high-performance products. —  who designs resilient microservices and cloud architectures, backed by comprehensive production monitoring, log visualization, and custom alerting dashboards.
+</p>
 
-          <p class="text-2xl text-slate-400 max-w-xl mx-auto md:mx-0 leading-relaxed">
-            Hi, I'm <strong class="text-white font-note">Saish Chaskar</strong>. A Full Stack Engineer and Cloud enthusiast building high-performance systems.
-          </p>
-
-          <div class="h-10">
-            <span class="text-2xl md:text-3xl text-cyan-400 font-mono typing font-bold"></span>
-          </div>
-
+<div class="hero-capabilities" aria-label="Areas of expertise">
+    <span class="hero-capability">Full-Stack Development</span>
+    <span class="hero-capability">Cloud Infrastructure</span>
+    <span class="hero-capability">System Observability</span>
+    <span class="hero-capability">Alerts & Visualization</span>
+</div>
           <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start pt-6">
             <a href="https://drive.google.com/file/d/1oh81GIMEZxWLL_LB1F8Y-EVpG7Tj9xft/view?usp=sharing" target="_blank" class="px-10 py-4 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-3 shadow-lg shadow-white/10">
               <ion-icon name="download-outline" class="text-xl"></ion-icon> Download CV
@@ -230,7 +233,8 @@
                 <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(56,189,248,0.08),rgba(59,130,246,0.02),rgba(168,85,247,0.08))]"></div>
 
                 <div class="relative h-[500px] flex items-center justify-center">
-                  <img src="./assets/images/reshot-illustration-software-engineer-developing-an-app-CVUTPGXM57-PhotoRoom.png-PhotoRoom.png" alt="Software engineer building connected digital systems" class="relative h-full w-full object-contain drop-shadow-[0_20px_30px_rgba(56,189,248,0.16)] transition-transform duration-700 group-hover:scale-[1.03]">
+                  <img src="./assets/images/maharashtra-sahyadri.jpeg" alt="Sunset over the Sahyadri hills in Maharashtra" class="relative h-full w-full rounded-[1.5rem] object-cover object-center drop-shadow-[0_20px_30px_rgba(20,33,61,0.16)] transition-transform duration-700 group-hover:scale-[1.03]">
+                  <span class="sahyadri-caption absolute bottom-4 left-4 rounded-full border px-4 py-2 text-sm font-semibold backdrop-blur-md">Sahyadri · Maharashtra</span>
                 </div>
               </div>
             </div>
@@ -291,7 +295,6 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   
@@ -319,14 +322,6 @@
 
     window.addEventListener('scroll', handleHeaderScroll, { passive: true });
     handleHeaderScroll();
-
-    // Typing Animation
-    var typed = new Typed('.typing', {
-      strings: ['Full Stack Developer', 'Cloud Engineer', 'System Architect'],
-      typeSpeed: 60,
-      backSpeed: 40,
-      loop: true
-    });
 
     // Mobile Menu Logic
     const btn = document.getElementById('mobile-menu-btn');
@@ -384,6 +379,7 @@
     });
   });
   </script>
+  <script src="./assets/js/enhancements.js?v=20261022-5"></script>
 
 </body>
 </html>

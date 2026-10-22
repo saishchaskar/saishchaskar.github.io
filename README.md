@@ -33,6 +33,9 @@ This portfolio is designed to:
 - Responsive layout for desktop and mobile
 - Dark, modern UI with accent gradients and animations
 - Apple-inspired light and dark themes with persistent theme preference
+- Palette-driven light theme with navy, red, magenta, and pink accents
+- Dedicated Contribute page with an interactive 28-state/8-UT map, illustrative crop lenses, state-specific technology prompts, zoom controls, research links, and GitHub contribution links
+- Scroll progress, reveal animations, responsive navigation, and reduced-motion support
 - Project showcase with technology tags
 - Experience timeline and skill highlights
 - Contact section for direct outreach
@@ -45,12 +48,15 @@ saishchaskar.github.io/
 ├── index.html
 ├── projects/
 │   └── index.html
+├── contribute/
+│   └── index.html
 ├── contact/
 │   └── index.html
 ├── skill/
 │   └── index.html
 ├── assets/
 │   ├── css/
+│   ├── maps/
 │   ├── images/
 │   └── js/
 ├── favicon.svg
@@ -63,6 +69,10 @@ saishchaskar.github.io/
 ## Local Development
 
 No build step is required because the site is fully static.
+
+The Contribute page loads the bundled state map from `assets/maps/india-states.svg`.
+Its source, license, and boundary-vintage limitations are documented in
+[`assets/maps/THIRD_PARTY_NOTICES.md`](assets/maps/THIRD_PARTY_NOTICES.md).
 
 1. Open the project directory in a terminal.
 2. Start a simple local server:
@@ -83,6 +93,7 @@ This project is configured for GitHub Pages with folder-based clean URLs. Pages 
 
 - https://saishchaskar.github.io/
 - https://saishchaskar.github.io/projects/
+- https://saishchaskar.github.io/contribute/
 - https://saishchaskar.github.io/contact/
 - https://saishchaskar.github.io/skill/
 
