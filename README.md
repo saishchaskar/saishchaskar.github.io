@@ -34,8 +34,10 @@ This portfolio is designed to:
 - Dark, modern UI with accent gradients and animations
 - Apple-inspired light and dark themes with persistent theme preference
 - Palette-driven light theme with navy, red, magenta, and pink accents
+- One-page home overview with direct About, Work, and Contact navigation, alongside detailed project and experience pages
+- Homepage greeting splash on each visit or refresh, cycling through English, French, Spanish, Hindi, Marathi, and Japanese, with a skip option
 - Dedicated Contribute page with an interactive 28-state/8-UT map, illustrative crop lenses, state-specific technology prompts, zoom controls, research links, and GitHub contribution links
-- Scroll progress, reveal animations, responsive navigation, and reduced-motion support
+- Slow, eased anchor scrolling, shared cross-page transitions, staggered viewport reveals, responsive navigation, and reduced-motion support
 - Project showcase with technology tags
 - Experience timeline and skill highlights
 - Contact section for direct outreach
