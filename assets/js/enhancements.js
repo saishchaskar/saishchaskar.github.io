@@ -2,247 +2,249 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const introSplash = document.getElementById('intro-splash');
 
-  if (introSplash && document.documentElement.classList.contains('intro-ready') && !prefersReducedMotion) {
-    const greeting = document.getElementById('intro-greeting');
-    const progress = document.getElementById('intro-progress');
-    const skipButton = document.getElementById('intro-skip');
-    const greetings = [
-      { text: 'Hello', language: 'en' },
-      { text: 'Bonjour', language: 'fr' },
-      { text: 'Hola', language: 'es' },
-      { text: 'नमस्ते', language: 'hi' },
-      { text: 'नमस्कार', language: 'mr' },
-      { text: 'こんにちは', language: 'ja' }
-    ];
-    let greetingIndex = 0;
-    let greetingInterval;
-    let greetingTimeout;
+  if (introSplash) {
+    const greetingText = document.getElementById('intro-text');
+    const greetingEl = document.getElementById('intro-greeting');
+    const svgPath = document.getElementById('intro-path');
+    const svgEl = document.getElementById('intro-svg');
 
-    const dismissIntro = () => {
-      window.clearInterval(greetingInterval);
-      window.clearTimeout(greetingTimeout);
-      introSplash.classList.add('is-dismissed');
-      window.setTimeout(() => {
-        introSplash.remove();
-        document.documentElement.classList.remove('intro-ready');
-      }, 500);
+    // Multilingual greetings including Marathi (नमस्कार) and Hindi (नमस्ते)
+    const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्कार", "नमस्ते", "やあ", "Guten Tag", "Hallo"];
+    let wordIndex = 0;
+    let isExiting = false;
+    let wordTimer = null;
+    let exitTimer = null;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    // Cubic bezier easing: cubic-bezier(0.76, 0, 0.24, 1)
+    const bezier = (p1x, p1y, p2x, p2y) => {
+      const cx = 3 * p1x, bx = 3 * (p2x - p1x) - cx, ax = 1 - cx - bx;
+      const cy = 3 * p1y, by = 3 * (p2y - p1y) - cy, ay = 1 - cy - by;
+      const sampleX = (t) => ((ax * t + bx) * t + cx) * t;
+      const sampleY = (t) => ((ay * t + by) * t + cy) * t;
+      const solveX = (x) => {
+        let t = x;
+        for (let i = 0; i < 8; i++) {
+          const dx = sampleX(t) - x;
+          if (Math.abs(dx) < 1e-4) return t;
+          const d = (3 * ax * t + 2 * bx) * t + cx;
+          if (Math.abs(d) < 1e-5) break;
+          t -= dx / d;
+        }
+        let t0 = 0, t1 = 1;
+        t = x;
+        for (let i = 0; i < 12; i++) {
+          const dx = sampleX(t) - x;
+          if (Math.abs(dx) < 1e-4) return t;
+          if (dx > 0) t1 = t; else t0 = t;
+          t = (t0 + t1) / 2;
+        }
+        return t;
+      };
+      return (x) => sampleY(solveX(x));
+    };
+    const ease = bezier(0.76, 0, 0.24, 1);
+
+    const updateSvg = (curveOffset) => {
+      if (!svgPath || !svgEl) return;
+      svgEl.setAttribute('viewBox', `0 0 ${width} ${height + 300}`);
+      svgEl.setAttribute('preserveAspectRatio', 'none');
+      const d = `M0 0 L${width} 0 L${width} ${height} Q${width / 2} ${height + curveOffset} 0 ${height} L0 0`;
+      svgPath.setAttribute('d', d);
     };
 
-    skipButton.addEventListener('click', dismissIntro, { once: true });
-    greetingInterval = window.setInterval(() => {
-      greetingIndex += 1;
-      if (greetingIndex >= greetings.length) {
-        dismissIntro();
-        return;
-      }
+    window.scrollTo(0, 0);
+    updateSvg(300);
 
-      greeting.classList.add('is-changing');
-      greetingTimeout = window.setTimeout(() => {
-        greeting.textContent = greetings[greetingIndex].text;
-        greeting.lang = greetings[greetingIndex].language;
-        progress.style.width = `${(greetingIndex / (greetings.length - 1)) * 100}%`;
-        greeting.classList.remove('is-changing');
-      }, 140);
-    }, 500);
-  } else if (introSplash) {
-    introSplash.remove();
+    const onResize = () => {
+      if (isExiting) return;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      updateSvg(300);
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    // Cycle through multilingual words
+    const cycleWords = () => {
+      if (wordIndex < words.length - 1) {
+        const delay = wordIndex === 0 ? 900 : 135;
+        wordTimer = window.setTimeout(() => {
+          wordIndex += 1;
+          if (greetingText) greetingText.textContent = words[wordIndex];
+          cycleWords();
+        }, delay);
+      }
+    };
+    cycleWords();
+
+    // Curved curtain exit transition
+    const exitAnimation = () => {
+      if (isExiting) return;
+      isExiting = true;
+      window.clearTimeout(wordTimer);
+      window.clearTimeout(exitTimer);
+      window.removeEventListener('resize', onResize);
+
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      const startTime = performance.now();
+      const slideStart = 200;
+      const slideDuration = 800;
+      const curveStart = 300;
+      const curveDuration = 700;
+      const totalDuration = 1000;
+
+      const animate = (now) => {
+        const elapsed = now - startTime;
+
+        if (elapsed >= slideStart) {
+          const slideProgress = Math.min(1, (elapsed - slideStart) / slideDuration);
+          const slideEased = ease(slideProgress);
+          introSplash.style.transform = `translateY(-${slideEased * 100}%)`;
+        }
+
+        if (elapsed >= curveStart) {
+          const curveProgress = Math.min(1, (elapsed - curveStart) / curveDuration);
+          const curveEased = ease(curveProgress);
+          const curveOffset = 300 * (1 - curveEased);
+          updateSvg(curveOffset);
+        }
+
+        if (elapsed < totalDuration) {
+          window.requestAnimationFrame(animate);
+        } else {
+          introSplash.style.transform = 'translateY(-100%)';
+          updateSvg(0);
+          introSplash.remove();
+          document.documentElement.classList.remove('intro-ready');
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+        }
+      };
+
+      window.requestAnimationFrame(animate);
+    };
+
+    exitTimer = window.setTimeout(exitAnimation, 2000);
+
+    introSplash.addEventListener('click', exitAnimation, { once: true });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') exitAnimation();
+    }, { once: true });
+  } else {
     document.documentElement.classList.remove('intro-ready');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
-  let scrollFrame;
-  document.addEventListener('click', (event) => {
-    if (
-      !(event.target instanceof Element) ||
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) return;
-
-    const link = event.target.closest('a[href]');
-    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
-
-    const destination = new URL(link.href, window.location.href);
-    if (
-      destination.origin !== window.location.origin ||
-      destination.pathname !== window.location.pathname ||
-      destination.search !== window.location.search ||
-      !destination.hash
-    ) return;
-
-    let targetId;
-    try {
-      targetId = decodeURIComponent(destination.hash.slice(1));
-    } catch {
-      return;
-    }
-
-    const target = document.getElementById(targetId);
-    if (!target) return;
-
-    event.preventDefault();
-    window.cancelAnimationFrame(scrollFrame);
-    if (window.location.hash !== destination.hash) {
-      window.history.pushState(null, '', destination.hash);
-    }
-
-    const rootStyle = window.getComputedStyle(document.documentElement);
-    const targetStyle = window.getComputedStyle(target);
-    const topOffset = Math.max(
-      Number.parseFloat(rootStyle.scrollPaddingTop) || 0,
-      Number.parseFloat(targetStyle.scrollMarginTop) || 0
-    );
-    const startPosition = window.scrollY;
-    const endPosition = Math.max(0, target.getBoundingClientRect().top + startPosition - topOffset);
-    const distance = endPosition - startPosition;
-
-    if (prefersReducedMotion || Math.abs(distance) < 1) {
-      window.scrollTo({ top: endPosition, behavior: 'instant' });
-      return;
-    }
-
-    const duration = Math.min(1600, Math.max(700, Math.abs(distance) * 0.45));
-    const startTime = performance.now();
-    const animateScroll = (time) => {
-      const progress = Math.min(1, (time - startTime) / duration);
-      const easedProgress = progress < 0.5
-        ? 4 * progress ** 3
-        : 1 - ((-2 * progress + 2) ** 3) / 2;
-      window.scrollTo({
-        top: startPosition + distance * easedProgress,
-        behavior: 'instant'
-      });
-
-      if (progress < 1) {
-        scrollFrame = window.requestAnimationFrame(animateScroll);
-      }
-    };
-
-    scrollFrame = window.requestAnimationFrame(animateScroll);
-  });
-
-  const pageTransitionKey = 'saish-page-transition';
-  try {
-    if (sessionStorage.getItem(pageTransitionKey) === 'true') {
-      sessionStorage.removeItem(pageTransitionKey);
-      document.body.classList.add('is-page-entering');
-      window.setTimeout(() => document.body.classList.remove('is-page-entering'), 460);
-    }
-  } catch (error) {
-    console.error('Unable to restore the page transition state.', error);
-  }
-
+  // Smooth in-page anchor navigation
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
-    const link = event.target.closest('a');
-    if (
-      !link ||
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      link.hasAttribute('download') ||
-      (link.target && link.target !== '_self')
-    ) return;
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
 
-    const destination = new URL(link.href, window.location.href);
-    if (
-      destination.origin !== window.location.origin ||
-      (destination.pathname === window.location.pathname && destination.search === window.location.search)
-    ) return;
+    const hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    const targetEl = document.querySelector(hash);
+    if (!targetEl) return;
 
     event.preventDefault();
-    event.stopImmediatePropagation();
-    document.body.classList.add('is-exiting');
-    try {
-      sessionStorage.setItem(pageTransitionKey, 'true');
-    } catch (error) {
-      console.error('Unable to save the page transition state.', error);
+    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (window.location.hash !== hash) {
+      window.history.pushState(null, '', hash);
     }
 
-    const transitionDelay = prefersReducedMotion ? 0 : 240;
-    window.setTimeout(() => window.location.assign(destination.href), transitionDelay);
-  }, true);
+    // Auto-close mobile drawer if open
+    const menu = document.getElementById('mobile-menu');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    if (menu && !menu.classList.contains('max-h-0')) {
+      menu.classList.add('max-h-0', 'opacity-0');
+      menu.classList.remove('max-h-screen', 'opacity-100');
+      if (menuBtn) menuBtn.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
+    }
+  });
 
+  // Sticky navbar scroll state
   const siteNav = document.querySelector('header.site-nav');
   if (siteNav) {
     const updateSiteNav = () => {
       siteNav.classList.toggle('is-scrolled', window.scrollY > 24);
     };
-
     window.addEventListener('scroll', updateSiteNav, { passive: true });
     updateSiteNav();
   }
 
-  const progress = document.createElement('div');
-  progress.id = 'scroll-progress';
-  progress.setAttribute('aria-hidden', 'true');
-  document.body.append(progress);
+  // Active Scroll Spy for navigation items
+  const navLinks = document.querySelectorAll('header.site-nav nav a[href^="#"], #mobile-menu nav a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
 
-  let frameRequested = false;
-  const updateProgress = () => {
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progressRatio = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
-    progress.style.transform = `scaleX(${Math.min(1, Math.max(0, progressRatio))})`;
-    frameRequested = false;
-  };
-
-  window.addEventListener('scroll', () => {
-    if (frameRequested) return;
-    frameRequested = true;
-    window.requestAnimationFrame(updateProgress);
-  }, { passive: true });
-  window.addEventListener('resize', updateProgress);
-  updateProgress();
-
-  const revealItems = document.querySelectorAll(
-    '[data-reveal], .activity-card, .challenge-card, .project-card, main > section'
-  );
-  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-    revealItems.forEach((item) => item.classList.add('is-visible'));
-  } else {
-    document.documentElement.classList.add('has-reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+  if (sections.length && navLinks.length && 'IntersectionObserver' in window) {
+    const spyObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          const currentId = entry.target.getAttribute('id');
+          navLinks.forEach((link) => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === `#${currentId}`) {
+              link.classList.remove('text-slate-200', 'text-slate-300');
+              link.classList.add('text-cyan-400', 'font-semibold');
+            } else {
+              link.classList.remove('text-cyan-400', 'font-semibold');
+              link.classList.add(link.closest('#mobile-menu') ? 'text-slate-300' : 'text-slate-200');
+            }
+          });
+        }
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '-20% 0px -55% 0px', threshold: 0.1 });
 
-    revealItems.forEach((item) => {
-      item.setAttribute('data-reveal', '');
-      if (item.classList.contains('project-card') && item.parentElement) {
-        const cardIndex = Array.from(item.parentElement.children).indexOf(item);
-        item.style.setProperty('--reveal-delay', `${cardIndex * 90}ms`);
+    sections.forEach((sec) => spyObserver.observe(sec));
+  }
+
+  // Mobile menu button toggle
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isClosed = mobileMenu.classList.contains('max-h-0');
+      if (isClosed) {
+        mobileMenu.classList.remove('max-h-0', 'opacity-0');
+        mobileMenu.classList.add('max-h-screen', 'opacity-100');
+        mobileBtn.innerHTML = '<ion-icon name="close-outline"></ion-icon>';
+      } else {
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        mobileMenu.classList.remove('max-h-screen', 'opacity-100');
+        mobileBtn.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
       }
-      revealObserver.observe(item);
     });
   }
 
-  const menu = document.getElementById('mobile-menu');
-  const menuButton = document.getElementById('mobile-menu-btn');
-  if (menu && menuButton) {
-    menuButton.setAttribute('aria-label', 'Open navigation menu');
-    menuButton.setAttribute('aria-expanded', 'false');
+  // Contact form mailto handler
+  const sendEmailBtn = document.getElementById('sendEmailButton');
+  if (sendEmailBtn) {
+    sendEmailBtn.addEventListener('click', () => {
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const subjectInput = document.getElementById('subject');
+      const messageInput = document.getElementById('message');
 
-    menuButton.addEventListener('click', () => {
-      const isOpen = !menu.classList.contains('max-h-0');
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-      menuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
-    });
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const subject = subjectInput ? subjectInput.value.trim() : '';
+      const message = messageInput ? messageInput.value.trim() : '';
 
-    menu.addEventListener('click', (event) => {
-      if (!(event.target instanceof Element) || !event.target.closest('a')) return;
-      menu.classList.add('max-h-0', 'opacity-0');
-      menu.classList.remove('max-h-screen', 'opacity-100');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.setAttribute('aria-label', 'Open navigation menu');
-      menuButton.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
+      if (!name || !email || !message) {
+        alert('Please fill in your name, email, and message before sending.');
+        return;
+      }
+
+      const mailtoLink = `mailto:saish.chaskar@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry from ' + name)}&body=${encodeURIComponent(`Hi Saish,\n\n${message}\n\nFrom: ${name} (${email})`)}`;
+      window.location.href = mailtoLink;
     });
   }
 })();

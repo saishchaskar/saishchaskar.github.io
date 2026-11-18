@@ -34,13 +34,12 @@ This portfolio is designed to:
 - Dark, modern UI with accent gradients and animations
 - Apple-inspired light and dark themes with persistent theme preference
 - Palette-driven light theme with navy, red, magenta, and pink accents
-- One-page home overview with direct About, Work, and Contact navigation, alongside detailed project and experience pages
-- Homepage greeting splash on each visit or refresh, cycling through English, French, Spanish, Hindi, Marathi, and Japanese, with a skip option
-- Dedicated Contribute page with an interactive 28-state/8-UT map, illustrative crop lenses, state-specific technology prompts, zoom controls, research links, and GitHub contribution links
-- Slow, eased anchor scrolling, shared cross-page transitions, staggered viewport reveals, responsive navigation, and reduced-motion support
-- Project showcase with technology tags
-- Experience timeline and skill highlights
-- Contact section for direct outreach
+- Unified single-page portfolio with buttery smooth in-page scrolling, sticky glassmorphic navigation bar, and responsive active scroll-spy
+- Theme-matched preloader entrance with glowing cyan indicator and multilingual greetings including Marathi (नमस्कार), Hindi (नमस्ते), English, French, Italian, Portuguese, Japanese, German, and Dutch with curved SVG curtain wipe
+- Interactive Experience Timeline and categorized Technical Skills
+- Complete 6-project showcase with technology tags, image previews, and direct repository links
+- Dedicated AgroConnect open-source AgriTech spotlight linking to the 28-state interactive map
+- Integrated contact information and interactive message form with direct dispatch
 - Clean URLs for GitHub Pages routing
 
 ## Project Structure

@@ -6,9 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('intro-ready');
-    }
+    document.documentElement.classList.add('intro-ready');
   </script>
   
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
@@ -30,7 +28,7 @@
           },
           animation: {
             'blob': 'blob 7s infinite',
-            'scroll': 'scroll 25s linear infinite', // Slowed down slightly for better visibility
+            'scroll': 'scroll 25s linear infinite',
           },
           keyframes: {
             blob: {
@@ -49,7 +47,7 @@
     }
   </script>
 
-  <title>Saish Chaskar | Full Stack Developer</title>
+  <title>Saish Chaskar | Full Stack & Cloud Developer</title>
   
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,16 +55,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Edu+SA+Beginner:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Nunito:wght@400;500;600;700;800&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="./assets/css/require.css">
-  <link rel="stylesheet" href="./assets/css/theme.css?v=20261117-6">
+  <link rel="stylesheet" href="./assets/css/theme.css?v=20261119-3">
   <script src="./assets/js/theme.js"></script>
   
   <style>
-    /* CRITICAL FIX: Override require.css 62.5% font-size hack */
     html {
-      font-size: 14px !important; 
+      font-size: 14px !important;
+      scroll-behavior: smooth;
+      scroll-padding-top: 6.5rem;
     }
 
-    /* CUSTOM SCROLLBAR - Page Level */
     html::-webkit-scrollbar {
       width: 10px;
     }
@@ -74,17 +72,16 @@
       background: #0f172a;
     }
     html::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.35);
       border-radius: 10px;
       border: 2px solid #0f172a;
     }
     html::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.6);
+      background: rgba(56, 189, 248, 0.65);
     }
 
-    /* Mobile Menu Transition */
     #mobile-menu {
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out;
     }
 
     header {
@@ -107,68 +104,84 @@
 </head>
 
 <body class="home-page bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
-  <div class="intro-splash" id="intro-splash">
-    <div class="intro-splash-content">
-      <p class="intro-splash-brand">SAISH CHASKAR <span>·</span> PORTFOLIO</p>
-      <p class="intro-splash-greeting" id="intro-greeting" lang="en">Hello</p>
-      <p class="intro-splash-caption">A little hello in six languages</p>
-      <div class="intro-splash-progress" aria-hidden="true"><span id="intro-progress"></span></div>
-    </div>
-    <button class="intro-splash-skip" id="intro-skip" type="button">Skip intro <span aria-hidden="true">↗</span></button>
+  
+  <!-- Curved Theme Splash Preloader -->
+  <div class="intro-splash" id="intro-splash" aria-hidden="true">
+    <p class="intro-splash-greeting" id="intro-greeting">
+      <span class="intro-splash-dot"></span>
+      <span id="intro-text">Hello</span>
+    </p>
+    <svg class="intro-splash-svg" id="intro-svg">
+      <path id="intro-path"></path>
+    </svg>
   </div>
+  <script>
+    (function() {
+      var w = window.innerWidth, h = window.innerHeight;
+      var svg = document.getElementById('intro-svg');
+      var p = document.getElementById('intro-path');
+      if (svg && p) {
+        svg.setAttribute('viewBox', '0 0 ' + w + ' ' + (h + 300));
+        svg.setAttribute('preserveAspectRatio', 'none');
+        p.setAttribute('d', 'M0 0 L' + w + ' 0 L' + w + ' ' + h + ' Q' + (w / 2) + ' ' + (h + 300) + ' 0 ' + h + ' L0 0');
+      }
+    })();
+  </script>
 
+  <!-- Sticky Glassmorphism Header -->
   <header class="site-nav fixed top-4 left-0 right-0 z-50 px-4 md:px-8 nav-visible">
-    <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.45)]">
+    <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-slate-900/75 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.65)]">
       <div class="container mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="./" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
+        <a href="#home" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
           Saish.
         </a>
 
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#home" class="text-lg font-medium text-cyan-400 transition-colors">Home</a>
-          <a href="#about" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">About</a>
-          <a href="./skill/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Experience</a>
-          <a href="#work" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Work</a>
-          <a href="./contribute/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contribute</a>
+        <nav class="hidden md:flex items-center gap-7">
+          <a href="#home" class="nav-item text-lg font-medium text-cyan-400 transition-colors">Home</a>
+          <a href="#about" class="nav-item text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">About</a>
+          <a href="#experience" class="nav-item text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Experience</a>
+          <a href="#projects" class="nav-item text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Projects</a>
+          <a href="#contribute" class="nav-item text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contribute</a>
+          <a href="#contact" class="nav-item text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contact</a>
         </nav>
 
-        <a href="#contact" class="hidden md:inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:-translate-y-0.5 text-base">
+        <a href="#contact" class="hidden md:inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-[0_0_25px_rgba(6,182,212,0.55)] transition-all transform hover:-translate-y-0.5 text-base">
           Let's Talk
         </a>
 
-        <button id="mobile-menu-btn" class="md:hidden text-4xl text-white focus:outline-none">
+        <button id="mobile-menu-btn" class="md:hidden text-4xl text-white focus:outline-none" aria-label="Toggle menu">
           <ion-icon name="menu-outline"></ion-icon>
         </button>
       </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden mx-auto mt-3 max-w-[92%] max-h-0 opacity-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl">
-      <nav class="flex flex-col p-8 space-y-6 text-center">
-        <a href="#home" class="text-2xl font-medium text-cyan-400">Home</a>
-        <a href="#about" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">About</a>
-        <a href="./skill/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Experience & Skills</a>
-        <a href="#work" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Featured Work</a>
-        <a href="./contribute/" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Contribute</a>
-        <a href="#contact" class="text-2xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="md:hidden mx-auto mt-3 max-w-[92%] max-h-0 opacity-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-2xl shadow-2xl">
+      <nav class="flex flex-col p-8 space-y-5 text-center">
+        <a href="#home" class="mobile-nav-link text-2xl font-medium text-cyan-400">Home</a>
+        <a href="#about" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-cyan-400">About</a>
+        <a href="#experience" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-cyan-400">Experience & Skills</a>
+        <a href="#projects" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-cyan-400">Projects</a>
+        <a href="#contribute" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-cyan-400">Contribute</a>
+        <a href="#contact" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="home" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
-      
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
       <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob"></div>
+        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-35 animate-blob"></div>
         <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob animation-delay-2000"></div>
         <div class="absolute -bottom-32 left-1/3 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob animation-delay-4000"></div>
       </div>
 
       <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        
         <div class="space-y-8 text-center md:text-left z-10">
-          <!-- <div class="inline-block px-5 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-semibold text-lg mb-2">
-            🚀 Open to work
-          </div> -->
+          <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-semibold text-base mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span> Full Stack & Cloud Developer
+          </div>
           
           <h1 class="text-6xl md:text-8xl font-heading font-bold leading-tight tracking-tight">
             Architecting <br>
@@ -176,21 +189,23 @@
               Scalable Solutions
             </span>
           </h1>
-<p class="hero-intro text-2xl text-slate-400 max-w-xl mx-auto md:mx-0 leading-relaxed">
-    Hi, I'm <strong class="text-white font-note">Saish Chaskar</strong> — a Full Stack Engineer building high-performance products. —  who designs resilient microservices and cloud architectures, backed by comprehensive production monitoring, log visualization, and custom alerting dashboards.
-</p>
 
-<div class="hero-capabilities" aria-label="Areas of expertise">
-    <span class="hero-capability">Full-Stack Development</span>
-    <span class="hero-capability">Cloud Infrastructure</span>
-    <span class="hero-capability">System Observability</span>
-    <span class="hero-capability">Alerts & Visualization</span>
-</div>
-          <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start pt-6">
-            <a href="https://drive.google.com/file/d/1oh81GIMEZxWLL_LB1F8Y-EVpG7Tj9xft/view?usp=sharing" target="_blank" class="px-10 py-4 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-3 shadow-lg shadow-white/10">
+          <p class="hero-intro text-2xl text-slate-400 max-w-xl mx-auto md:mx-0 leading-relaxed">
+            Hi, I'm <strong class="text-white font-semibold">Saish Chaskar</strong> — a Full Stack Engineer who designs resilient microservices, high-throughput cloud architectures, and intelligent data systems.
+          </p>
+
+          <div class="hero-capabilities flex flex-wrap gap-3 justify-center md:justify-start" aria-label="Areas of expertise">
+            <span class="tech-tag">Full-Stack Development</span>
+            <span class="tech-tag">Cloud Infrastructure (GCP)</span>
+            <span class="tech-tag">System Observability</span>
+            <span class="tech-tag">Event-Driven Pipelines</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-5 justify-center md:justify-start pt-4">
+            <a href="https://drive.google.com/file/d/1oh81GIMEZxWLL_LB1F8Y-EVpG7Tj9xft/view?usp=sharing" target="_blank" class="px-9 py-4 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg shadow-white/10 hover:shadow-cyan-500/20">
               <ion-icon name="download-outline" class="text-xl"></ion-icon> Download CV
             </a>
-            <a href="#work" class="px-10 py-4 border border-white/20 hover:border-cyan-400 hover:text-cyan-400 rounded-full font-bold text-lg transition-all text-white flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm">
+            <a href="#projects" class="px-9 py-4 border border-white/20 hover:border-cyan-400 hover:text-cyan-400 rounded-full font-bold text-lg transition-all text-white flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm hover:bg-white/10">
               View Work <ion-icon name="arrow-forward-outline" class="text-xl"></ion-icon>
             </a>
           </div>
@@ -199,57 +214,57 @@
         <div class="relative z-10 flex justify-center">
           <div class="relative w-80 h-80 md:w-[450px] md:h-[450px]">
             <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-purple-600 rounded-full blur-2xl opacity-60 animate-pulse"></div>
-            <img src="assets/images/IMG_3643.jpg" alt="Saish Chaskar" class="relative w-full h-full object-cover rounded-full border-[6px] border-[#0f172a] shadow-2xl">
+            <img src="./assets/images/IMG_3643.jpg" alt="Saish Chaskar" class="relative w-full h-full object-cover rounded-full border-[6px] border-[#0f172a] shadow-2xl">
             
-            <div class="absolute -right-8 top-12 bg-[#1e293b]/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl animate-bounce duration-[3000ms]">
+            <div class="absolute -right-6 top-12 bg-[#1e293b]/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl animate-bounce duration-[3000ms]">
               <ion-icon name="code-slash" class="text-4xl text-cyan-400"></ion-icon>
             </div>
-            <div class="absolute -left-8 bottom-24 bg-[#1e293b]/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl animate-bounce duration-[4000ms]">
+            <div class="absolute -left-6 bottom-20 bg-[#1e293b]/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl animate-bounce duration-[4000ms]">
               <ion-icon name="cloud-done" class="text-4xl text-purple-400"></ion-icon>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <section class="py-16 border-y border-white/5 bg-[#0f172a]/50">
+    <!-- Tech Marquee Banner -->
+    <section class="py-14 border-y border-white/5 bg-[#0f172a]/50">
       <div class="overflow-hidden relative w-full">
         <div class="flex animate-scroll whitespace-nowrap gap-24 items-center">
-          <img src="assets/images/vs-code-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/google-cloud-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/android-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/aws-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/linux-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/firebase-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/kubernetes-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/vs-code-svgrepo-com.svg" alt="VS Code" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/google-cloud-svgrepo-com.svg" alt="GCP" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/android-svgrepo-com.svg" alt="Android" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/aws-svgrepo-com.svg" alt="AWS" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/linux-svgrepo-com.svg" alt="Linux" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/firebase-svgrepo-com.svg" alt="Firebase" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/kubernetes-svgrepo-com.svg" alt="Kubernetes" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
           
-          <img src="assets/images/vs-code-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/google-cloud-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/android-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/aws-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/linux-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/firebase-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-          <img src="assets/images/kubernetes-svgrepo-com.svg" class="h-16 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/vs-code-svgrepo-com.svg" alt="VS Code" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/google-cloud-svgrepo-com.svg" alt="GCP" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/android-svgrepo-com.svg" alt="Android" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/aws-svgrepo-com.svg" alt="AWS" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/linux-svgrepo-com.svg" alt="Linux" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/firebase-svgrepo-com.svg" alt="Firebase" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+          <img src="assets/images/kubernetes-svgrepo-com.svg" alt="Kubernetes" class="h-14 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
         </div>
       </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="py-24 md:py-28 bg-[#0f172a]">
-      <div class="container mx-auto px-6">
-        
-        <div class="bg-[#1e293b]/40 border border-white/5 rounded-[3rem] p-8 md:p-12 backdrop-blur-sm shadow-2xl">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="bg-[#1e293b]/40 border border-white/5 rounded-[3rem] p-8 md:p-14 backdrop-blur-sm shadow-2xl">
           <div class="grid md:grid-cols-2 gap-16 items-center">
             
             <div class="relative group h-full">
-              <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-[2rem] blur-xl opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+              <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-[2rem] blur-xl opacity-15 group-hover:opacity-25 transition duration-1000"></div>
 
               <div class="relative rounded-[2rem] border border-white/10 bg-[#0f172a]/80 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.8)] overflow-hidden">
                 <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(56,189,248,0.08),rgba(59,130,246,0.02),rgba(168,85,247,0.08))]"></div>
 
                 <div class="relative h-[320px] md:h-[420px] flex items-center justify-center">
                   <img src="./assets/images/maharashtra-sahyadri.jpeg" alt="Sunset over the Sahyadri hills in Maharashtra" class="relative h-full w-full rounded-[1.5rem] object-cover object-center drop-shadow-[0_20px_30px_rgba(20,33,61,0.16)] transition-transform duration-700 group-hover:scale-[1.03]">
-                  <span class="sahyadri-caption absolute bottom-4 left-4 rounded-full border px-4 py-2 text-sm font-semibold backdrop-blur-md">Sahyadri · Maharashtra</span>
+                  <span class="sahyadri-caption absolute bottom-4 left-4 rounded-full border border-white/20 bg-slate-900/80 px-4 py-2 text-sm font-semibold backdrop-blur-md text-white">Sahyadri · Maharashtra</span>
                 </div>
               </div>
             </div>
@@ -262,123 +277,635 @@
               
               <div class="space-y-4 text-slate-300 text-lg md:text-xl leading-relaxed">
                 <p>
-                  I am a Software Engineer based in Pune. My journey started with a fascination for how systems work, which evolved into a career in building them.
+                  I am a Software Engineer based in Pune, India. My passion lies in understanding how complex, high-throughput backend ecosystems function and crafting systems that scale cleanly under real-world loads.
                 </p>
                 <p>
-                  At <strong class="text-white">Unbox Robotics</strong> and <strong class="text-white">Cubois Technologies</strong>, I honed my skills in scalable backend architecture and cloud infrastructure. I hold a global <strong class="text-cyan-400">Google Associate Cloud Engineer</strong> certification, validating my expertise in deploying secure, high-availability solutions.
+                  At <strong class="text-white">Unbox Robotics</strong>, I specify and build customer-facing services handling real-time sorting APIs for 30–40K parcels daily with sub-100ms response times. I hold a global <strong class="text-cyan-400">Google Associate Cloud Engineer</strong> certification, validating my expertise in deploying resilient cloud microservices.
                 </p>
                 <p>
-                  Beyond code, I am a cybersecurity enthusiast dedicated to building secure digital environments. Let's build something extraordinary together.
+                  I'm deeply committed to high performance, clean architecture, and building impactful tools for real communities.
                 </p>
               </div>
 
               <div class="pt-6 flex gap-10 border-t border-white/10 mt-6">
                 <div class="flex flex-col">
-                  <span class="text-5xl font-bold text-white mb-2">1+</span>
+                  <span class="text-5xl font-bold text-white mb-1">1+</span>
                   <span class="text-lg text-slate-400 font-medium">Years Experience</span>
                 </div>
-                <div class="w-px h-20 bg-white/10"></div>
+                <div class="w-px h-16 bg-white/10"></div>
                 <div class="flex flex-col">
-                  <span class="text-5xl font-bold text-white mb-2">10+</span>
-                  <span class="text-lg text-slate-400 font-medium">Projects Completed</span>
+                  <span class="text-5xl font-bold text-white mb-1">10+</span>
+                  <span class="text-lg text-slate-400 font-medium">Projects Built</span>
+                </div>
+                <div class="w-px h-16 bg-white/10"></div>
+                <div class="flex flex-col">
+                  <span class="text-5xl font-bold text-cyan-400 mb-1">ACE</span>
+                  <span class="text-lg text-slate-400 font-medium">Google Certified</span>
                 </div>
               </div>
-              <a href="./skill/" class="inline-flex items-center gap-2 font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
-                Explore experience & skills <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+
+              <a href="#experience" class="inline-flex items-center gap-2 font-bold text-cyan-400 hover:text-cyan-300 transition-colors pt-2">
+                Explore experience & skills below <ion-icon name="arrow-down-outline" aria-hidden="true"></ion-icon>
               </a>
             </div>
 
           </div>
         </div>
-
       </div>
     </section>
 
-    <section id="work" class="home-work-section py-20 md:py-24">
+    <!-- Experience & Skills Section -->
+    <section id="experience" class="py-24 md:py-28 bg-[#0f172a] border-t border-white/5">
       <div class="container mx-auto px-6 max-w-7xl">
-        <div class="mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div class="max-w-2xl">
-            <p class="mb-3 text-sm font-bold uppercase tracking-[.18em] text-cyan-500">Selected work</p>
-            <h2 class="font-heading text-4xl font-bold md:text-6xl">Building things that <span class="text-cyan-500">matter.</span></h2>
-            <p class="mt-4 text-lg leading-relaxed text-slate-500 md:text-xl">A few projects spanning AI, cloud platforms, and tools for everyday problems.</p>
-          </div>
-          <a href="./projects/" class="inline-flex w-fit items-center gap-2 rounded-full border border-[var(--site-line)] px-6 py-3 font-bold text-[var(--site-text)] transition-colors hover:border-[var(--site-accent)] hover:text-[var(--site-accent)]">
-            All projects <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-          </a>
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <p class="text-sm font-bold uppercase tracking-[.18em] text-cyan-400 mb-2">Professional Path</p>
+          <h2 class="journey-title font-heading text-5xl md:text-7xl font-bold mb-4 text-white">
+            Experience & <span class="text-cyan-400">Skills</span>
+          </h2>
+          <p class="text-xl md:text-2xl text-slate-400">
+            Combining <span class="text-cyan-400 font-semibold">technical expertise</span> with hands-on <span class="text-purple-400 font-semibold">industry experience</span>.
+          </p>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-3">
-          <article class="home-project-card project-card">
-            <a href="./projects/#agroconnect" class="home-project-image">
-              <img src="./assets/images/agri.jpg" alt="Agriculture field representing the AgroConnect project" loading="lazy">
-              <span class="home-project-label">AI · Agriculture</span>
-            </a>
-            <div class="home-project-content">
-              <h3>AgroConnect</h3>
-              <p>AI-powered crop disease support with image classification and a retrieval-backed advice assistant.</p>
-              <a href="./projects/#agroconnect" class="home-project-link">Explore project <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Experience Timeline -->
+          <div class="lg:col-span-7 space-y-8">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-cyan-500/10 rounded-2xl text-cyan-400 text-3xl">
+                <ion-icon name="briefcase-outline"></ion-icon>
+              </div>
+              <h3 class="text-3xl font-heading font-bold text-white">Experience</h3>
             </div>
-          </article>
 
-          <article class="home-project-card project-card">
-            <a href="./projects/#resumemetrics" class="home-project-image">
-              <img src="./assets/images/resumes-desk.jpg" alt="Resume documents representing ResumeMetrics" loading="lazy">
-              <span class="home-project-label">Cloud · Automation</span>
-            </a>
-            <div class="home-project-content">
-              <h3>ResumeMetrics</h3>
-              <p>A cloud-native screening tool that ranks resumes against a role and keeps searchable history.</p>
-              <a href="./projects/#resumemetrics" class="home-project-link">Explore project <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
-            </div>
-          </article>
+            <div class="relative border-l-2 border-white/10 ml-4 space-y-12">
+              
+              <!-- Unbox Robotics Fullstack -->
+              <div class="relative pl-8 group">
+                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.8)]"></div>
+                
+                <div class="bg-[#1e293b]/50 p-8 rounded-3xl border border-white/5 hover:border-cyan-500/30 transition-all duration-300 hover:bg-[#1e293b] shadow-xl">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h4 class="text-2xl font-bold text-white">Software Developer - Fullstack</h4>
+                    <span class="px-3.5 py-1 bg-cyan-500/10 text-cyan-400 text-sm font-semibold rounded-full border border-cyan-500/20 w-fit">July 2025 - Present</span>
+                  </div>
+                  <div class="mb-5">
+                    <p class="text-xl text-cyan-300 font-medium">Unbox Robotics</p>
+                    <p class="text-slate-400 text-base">Pune, Maharashtra · On-site</p>
+                  </div>
+                  
+                  <ul class="space-y-3 text-lg text-slate-300 leading-relaxed list-disc list-outside pl-5 marker:text-cyan-500">
+                    <li>Specifying and building customer-facing service handling real-time APIs for <strong>30–40K parcels/day</strong> with low-latency (<strong>&lt;100 ms</strong>) responses.</li>
+                    <li>Architected high-throughput event pipelines to process <strong>60–80K+ events/day</strong>, ensuring reliable updates during live sortation.</li>
+                    <li>Built customer-specific data mapping layers to integrate diverse client schemas, enabling support for multiple sorting types.</li>
+                    <li>Built and owned <strong>Grafana dashboards</strong> to track FTP upload rates, latency, and volumes, significantly reducing manual follow-ups.</li>
+                  </ul>
 
-          <article class="home-project-card project-card">
-            <a href="./projects/#shetkari" class="home-project-image">
-              <img src="./assets/images/tractor.jpg" alt="Farm tractor representing the Shetkari App" loading="lazy">
-              <span class="home-project-label">Android · AgriTech</span>
-            </a>
-            <div class="home-project-content">
-              <h3>Shetkari App</h3>
-              <p>Local market prices, weather, and useful agriculture updates that help farmers make informed decisions.</p>
-              <a href="./projects/#shetkari" class="home-project-link">Explore project <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></a>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">RabbitMQ</span>
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">Java</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unbox Robotics Intern -->
+              <div class="relative pl-8 group">
+                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.8)]"></div>
+                
+                <div class="bg-[#1e293b]/50 p-8 rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all duration-300 hover:bg-[#1e293b] shadow-xl">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h4 class="text-2xl font-bold text-white">Software Development Intern</h4>
+                    <span class="px-3.5 py-1 bg-purple-500/10 text-purple-400 text-sm font-semibold rounded-full border border-purple-500/20 w-fit">Jan 2025 - July 2025</span>
+                  </div>
+                  <div class="mb-4">
+                    <p class="text-xl text-purple-300 font-medium">Unbox Robotics</p>
+                  </div>
+                  <p class="text-lg text-slate-300 mb-4 leading-relaxed">
+                    Gained hands-on experience in the Software Development Life Cycle (SDLC) and Linux environments. Contributed to core backend modules, unit testing, and test automation frameworks.
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tech-tag bg-purple-500/10 border-purple-500/20 text-purple-300">Linux</span>
+                    <span class="tech-tag bg-purple-500/10 border-purple-500/20 text-purple-300">SDLC</span>
+                    <span class="tech-tag bg-purple-500/10 border-purple-500/20 text-purple-300">Python</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cubois Technologies -->
+              <div class="relative pl-8 group">
+                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
+                
+                <div class="bg-[#1e293b]/50 p-8 rounded-3xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:bg-[#1e293b] shadow-xl">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h4 class="text-2xl font-bold text-white">Cloud Engineer Intern</h4>
+                    <span class="px-3.5 py-1 bg-blue-500/10 text-blue-400 text-sm font-semibold rounded-full border border-blue-500/20 w-fit">Mar 2024 - Aug 2024</span>
+                  </div>
+                  <div class="mb-4">
+                    <p class="text-xl text-blue-300 font-medium">Cubois Technologies</p>
+                    <p class="text-slate-400 text-base">Remote</p>
+                  </div>
+                  <p class="text-lg text-slate-300 leading-relaxed mb-4">
+                    Acquired deep knowledge of core cloud services and 150+ Google Cloud products. Successfully achieved the prestigious <strong class="text-cyan-400">Google Cloud Associate Engineer Certification</strong>.
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tech-tag bg-blue-500/10 border-blue-500/20 text-blue-300">GCP</span>
+                    <span class="tech-tag bg-blue-500/10 border-blue-500/20 text-blue-300">Cloud Run</span>
+                    <span class="tech-tag bg-blue-500/10 border-blue-500/20 text-blue-300">Terraform</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Starbucks -->
+              <div class="relative pl-8 group">
+                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.8)]"></div>
+                
+                <div class="bg-[#1e293b]/50 p-8 rounded-3xl border border-white/5 hover:border-green-500/30 transition-all duration-300 hover:bg-[#1e293b] shadow-xl">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h4 class="text-2xl font-bold text-white">Sales Operations / Coffee Master</h4>
+                    <span class="px-3.5 py-1 bg-green-500/10 text-green-400 text-sm font-semibold rounded-full border border-green-500/20 w-fit">Jun 2022 - Aug 2023</span>
+                  </div>
+                  <div class="mb-4">
+                    <p class="text-xl text-green-300 font-medium">Starbucks</p>
+                  </div>
+                  <p class="text-lg text-slate-300 leading-relaxed">
+                    Attained the title of "Coffee Master" and "Barista Trainer". Showcased exceptional team leadership, customer engagement, and contributed to store operations and inventory management.
+                  </p>
+                </div>
+              </div>
+
             </div>
-          </article>
+          </div>
+
+          <!-- Technical Skills Column -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-purple-500/10 rounded-2xl text-purple-400 text-3xl">
+                <ion-icon name="code-slash-outline"></ion-icon>
+              </div>
+              <h3 class="text-3xl font-heading font-bold text-white">Technical Skills</h3>
+            </div>
+
+            <!-- Languages -->
+            <div class="bg-[#1e293b]/60 p-7 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-500/10 transition-all">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="p-2.5 bg-cyan-500/10 rounded-xl text-cyan-400 text-2xl">
+                  <ion-icon name="terminal"></ion-icon>
+                </div>
+                <h4 class="text-2xl font-bold text-white">Languages</h4>
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <span class="skill-pill">Java</span>
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">JavaScript</span>
+                <span class="skill-pill">HTML5 / CSS3</span>
+                <span class="skill-pill">SQL</span>
+              </div>
+            </div>
+
+            <!-- Frameworks & Backend -->
+            <div class="bg-[#1e293b]/60 p-7 rounded-3xl border border-white/10 shadow-xl hover:shadow-purple-500/10 transition-all">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="p-2.5 bg-purple-500/10 rounded-xl text-purple-400 text-2xl">
+                  <ion-icon name="layers"></ion-icon>
+                </div>
+                <h4 class="text-2xl font-bold text-white">Frameworks & Backend</h4>
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <span class="skill-pill border-purple-500/30 text-purple-300">Spring Boot</span>
+                <span class="skill-pill border-purple-500/30 text-purple-300">FastAPI</span>
+                <span class="skill-pill border-purple-500/30 text-purple-300">Node.js</span>
+                <span class="skill-pill border-purple-500/30 text-purple-300">React</span>
+                <span class="skill-pill border-purple-500/30 text-purple-300">Tailwind CSS</span>
+              </div>
+            </div>
+
+            <!-- Cloud & DevOps -->
+            <div class="bg-[#1e293b]/60 p-7 rounded-3xl border border-white/10 shadow-xl hover:shadow-orange-500/10 transition-all">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="p-2.5 bg-orange-500/10 rounded-xl text-orange-400 text-2xl">
+                  <ion-icon name="cloud-upload"></ion-icon>
+                </div>
+                <h4 class="text-2xl font-bold text-white">Cloud & DevOps</h4>
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <span class="skill-pill border-orange-500/30 text-orange-300">Google Cloud (ACE)</span>
+                <span class="skill-pill border-orange-500/30 text-orange-300">AWS</span>
+                <span class="skill-pill border-orange-500/30 text-orange-300">Docker</span>
+                <span class="skill-pill border-orange-500/30 text-orange-300">Kubernetes</span>
+                <span class="skill-pill border-orange-500/30 text-orange-300">CI/CD Jenkins</span>
+              </div>
+            </div>
+
+            <!-- Tools & Databases -->
+            <div class="bg-[#1e293b]/60 p-7 rounded-3xl border border-white/10 shadow-xl hover:shadow-green-500/10 transition-all">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="p-2.5 bg-green-500/10 rounded-xl text-green-400 text-2xl">
+                  <ion-icon name="server"></ion-icon>
+                </div>
+                <h4 class="text-2xl font-bold text-white">Tools & Databases</h4>
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <span class="skill-pill border-green-500/30 text-green-300">PostgreSQL</span>
+                <span class="skill-pill border-green-500/30 text-green-300">Redis</span>
+                <span class="skill-pill border-green-500/30 text-green-300">RabbitMQ</span>
+                <span class="skill-pill border-green-500/30 text-green-300">Grafana</span>
+                <span class="skill-pill border-green-500/30 text-green-300">Git / GitHub</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="home-contact-section px-6 py-16 md:py-20">
-      <div class="home-contact-card container mx-auto flex max-w-7xl flex-col gap-8 rounded-[2rem] border p-8 md:flex-row md:items-center md:justify-between md:p-12">
-        <div class="max-w-2xl">
-          <p class="mb-3 text-sm font-bold uppercase tracking-[.18em] text-cyan-500">Have something in mind?</p>
-          <h2 class="font-heading text-4xl font-bold md:text-5xl">Let’s build something useful.</h2>
-          <p class="mt-3 text-lg leading-relaxed text-slate-500">Open to thoughtful conversations about software, cloud engineering, and collaboration.</p>
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 md:py-28 bg-[#0f172a]/70 border-t border-white/5">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="mb-14 text-center max-w-3xl mx-auto">
+          <p class="text-sm font-bold uppercase tracking-[.18em] text-cyan-400 mb-2">Featured Work</p>
+          <h2 class="font-heading text-5xl md:text-7xl font-bold text-white mb-4">
+            Building Things That <span class="text-cyan-400">Matter</span>
+          </h2>
+          <p class="text-xl md:text-2xl text-slate-400">
+            A comprehensive showcase spanning AI, cloud-native platforms, and everyday problem-solving.
+          </p>
         </div>
-        <div class="flex shrink-0 flex-wrap gap-3">
-          <a href="./contact/" class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 font-bold text-white transition-transform hover:-translate-y-0.5">
-            Get in touch <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-          </a>
-          <a href="mailto:saish.chaskar@gmail.com" class="inline-flex items-center gap-2 rounded-full border border-[var(--site-line)] px-6 py-3 font-bold text-[var(--site-text)] transition-colors hover:border-[var(--site-accent)] hover:text-[var(--site-accent)]">
-            Email me <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-          </a>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- AgroConnect -->
+          <div id="agroconnect" class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-cyan-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/agri.jpg" alt="AgroConnect" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-green-500/20 text-green-300 text-sm font-bold rounded-full border border-green-500/30 backdrop-blur-md">AI / ML</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors shrink-0">AgroConnect</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  AI-driven crop disease management using a fine-tuned <strong>CNN ResNet50</strong> model trained on 50,000+ images. Features a retrieval-augmented (RAG) chatbot and optimized FAISS search across 1M+ vectors.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">TensorFlow</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Flutter</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Python</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/AgroConnect-dev" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+          <!-- ResumeMetrics -->
+          <div id="resumemetrics" class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-purple-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/resumes-desk.jpg" alt="Resume Ranking" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-purple-500/20 text-purple-300 text-sm font-bold rounded-full border border-purple-500/30 backdrop-blur-md">Cloud Native</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors shrink-0">ResumeMetrics</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  Automated resume screening system ranking up to 2,000 resumes per batch against job descriptions. Built on <strong>Google Cloud Run</strong> with Docker and Vision API for high-accuracy text extraction.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">React</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Flask</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Docker</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">GCP</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/resume-screening-frontend" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-purple-500 hover:border-purple-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+          <!-- Shetkari App -->
+          <div id="shetkari" class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-green-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/tractor.jpg" alt="Shetkari" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-green-500/20 text-green-300 text-sm font-bold rounded-full border border-green-500/30 backdrop-blur-md">Android</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors shrink-0">Shetkari App</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  Empowering farmers with live APMC mandi prices for <strong>180+ commodities</strong> across Maharashtra and India. Integrates weather forecasts and government agricultural schemes.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Java</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Android SDK</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">REST APIs</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/Shetkari.git" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-green-500 hover:border-green-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+          <!-- Speedometer -->
+          <div class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-blue-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/speed.jpg" alt="Speedometer" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-blue-500/20 text-blue-300 text-sm font-bold rounded-full border border-blue-500/30 backdrop-blur-md">Web App</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors shrink-0">GPS Speedometer</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  Real-time GPS speed analytics dashboard visualizing location metrics, acceleration tracking, and trip history using browser Geolocation standards and smooth charting.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">JavaScript</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">HTML5</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Geolocation API</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/speedometer-unbox" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-blue-500 hover:border-blue-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+          <!-- Gas Utility -->
+          <div class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/gas.jpg" alt="Gas Utility" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-orange-500/20 text-orange-300 text-sm font-bold rounded-full border border-orange-500/30 backdrop-blur-md">Backend</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors shrink-0">Gas Utility Service</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  Enterprise consumer portal for request lodging, ticket dispatch, and live status tracking. Built with Django and relational SQL database with agent triage capabilities.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Django</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">SQL</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Python</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/gas_utility_services" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-orange-500 hover:border-orange-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+          <!-- SpaceX Integration -->
+          <div class="project-card group bg-[#1e293b]/60 rounded-3xl border border-white/10 overflow-hidden hover:border-indigo-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 flex flex-col h-[560px]">
+            <div class="relative h-56 shrink-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-70"></div>
+              <img src="./assets/images/spacex2.jpg" alt="SpaceX" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute top-4 right-4 z-20">
+                <span class="px-4 py-1.5 bg-indigo-500/20 text-indigo-300 text-sm font-bold rounded-full border border-indigo-500/30 backdrop-blur-md">API</span>
+              </div>
+            </div>
+            
+            <div class="p-8 flex-1 flex flex-col overflow-hidden">
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors shrink-0">SpaceX Integration</h3>
+              
+              <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-slate-300 text-base leading-relaxed">
+                  RESTful API integration visualizing past and upcoming SpaceX rocket launches. Handles complex nested JSON schemas, mission badges, telemetry links, and launch status filters.
+                </p>
+              </div>
+              
+              <div class="flex flex-wrap gap-2 mb-5 shrink-0">
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">JavaScript</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">REST API</span>
+                <span class="text-xs px-2.5 py-1 bg-white/5 rounded-lg text-slate-300 border border-white/10">Tailwind</span>
+              </div>
+
+              <a href="https://github.com/saishchaskar/spacex_api_fetch" target="_blank" class="w-full py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-indigo-500 hover:border-indigo-500 hover:text-white text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2 shrink-0">
+                <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contribute Spotlight Section -->
+    <section id="contribute" class="py-24 md:py-28 bg-[#0f172a] border-t border-white/5">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="bg-gradient-to-br from-[#1e293b]/70 via-[#1e293b]/40 to-[#0f172a] border border-cyan-500/20 rounded-[3rem] p-8 md:p-14 shadow-2xl relative overflow-hidden">
+          <div class="absolute -top-32 -right-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-8 space-y-6">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-300 font-semibold text-sm">
+                🌱 Open-Source AgriTech Initiative
+              </div>
+              <h2 class="text-4xl md:text-6xl font-heading font-bold text-white">
+                Contribute to <span class="text-cyan-400">AgroConnect-PWA</span>
+              </h2>
+              <p class="text-slate-300 text-lg md:text-xl leading-relaxed">
+                India's agricultural landscape is incredibly diverse. We are mapping and addressing farmer-centered technology challenges across <strong>28 states and 8 union territories</strong> — from regional crop disease diagnostics and low-bandwidth PWA performance to vernacular language AI assistants.
+              </p>
+              
+              <div class="flex flex-wrap gap-4 pt-2">
+                <a href="./contribute/" class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-full font-bold text-lg shadow-lg shadow-cyan-500/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-3">
+                  <ion-icon name="map-outline" class="text-2xl"></ion-icon> Explore 28-State Interactive Map
+                </a>
+                <a href="https://github.com/saishchaskar/AgroConnect-dev" target="_blank" class="px-8 py-4 border border-white/20 hover:border-cyan-400 hover:text-cyan-400 text-white rounded-full font-bold text-lg transition-all flex items-center gap-3 bg-white/5 backdrop-blur-sm">
+                  <ion-icon name="logo-github" class="text-2xl"></ion-icon> GitHub Repo
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 bg-[#0f172a]/90 p-7 rounded-3xl border border-white/10 shadow-xl space-y-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-cyan-400"></span> Regional Highlights
+              </h3>
+              <p class="text-slate-400 text-base leading-relaxed">
+                Explore crop lenses for Sugarcane, Cotton, Rice, Soybean, and Apple, alongside tailored field challenge prompts.
+              </p>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-slate-300 text-sm">
+                <span>28 States & 8 UTs mapped</span>
+                <span class="text-cyan-400 font-semibold">Live SVG Map →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unified Contact Section -->
+    <section id="contact" class="py-24 md:py-28 bg-[#0f172a]/80 border-t border-white/5">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="mb-14 text-center max-w-2xl mx-auto">
+          <p class="text-sm font-bold uppercase tracking-[.18em] text-cyan-400 mb-2">Get in touch</p>
+          <h2 class="font-heading text-5xl md:text-7xl font-bold text-white mb-4">
+            Let's Build Something <span class="text-cyan-400">Useful</span>
+          </h2>
+          <p class="text-xl text-slate-400">
+            Open to thoughtful conversations about scalable backend engineering, cloud systems, and collaboration.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Contact Details Column -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-[#1e293b]/60 p-8 rounded-3xl border border-white/10 shadow-xl">
+              <h3 class="text-2xl font-heading font-bold text-white mb-6">Contact Information</h3>
+              
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div class="p-3.5 bg-cyan-500/10 rounded-2xl text-cyan-400 text-2xl shrink-0">
+                    <ion-icon name="mail-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-400 mb-0.5">Email</p>
+                    <a href="mailto:saish.chaskar@gmail.com" class="text-lg font-medium text-white hover:text-cyan-400 transition-colors break-all">
+                      saish.chaskar@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div class="p-3.5 bg-purple-500/10 rounded-2xl text-purple-400 text-2xl shrink-0">
+                    <ion-icon name="location-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-400 mb-0.5">Location</p>
+                    <p class="text-lg font-medium text-white">Pune, Maharashtra, India</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div class="p-3.5 bg-blue-500/10 rounded-2xl text-blue-400 text-2xl shrink-0">
+                    <ion-icon name="time-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-400 mb-0.5">Timezone</p>
+                    <p class="text-lg font-medium text-white">IST (UTC +5:30)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links Card -->
+            <div class="bg-[#1e293b]/60 p-8 rounded-3xl border border-white/10 shadow-xl">
+              <h3 class="text-2xl font-heading font-bold text-white mb-6">Connect on Social</h3>
+              <div class="flex gap-4">
+                <a href="https://github.com/saishchaskar" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-white/15 text-white hover:text-cyan-400 border border-white/10 transition-all text-2xl shadow-lg hover:scale-105" title="GitHub">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+                <a href="https://www.linkedin.com/in/saish-chaskar-74b705237/" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-blue-600/20 text-white hover:text-blue-400 border border-white/10 transition-all text-2xl shadow-lg hover:scale-105" title="LinkedIn">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                <a href="https://instagram.com/saishchaskar" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-pink-600/20 text-white hover:text-pink-400 border border-white/10 transition-all text-2xl shadow-lg hover:scale-105" title="Instagram">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Message Form Column -->
+          <div class="lg:col-span-7">
+            <div class="bg-[#1e293b]/70 p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+              <h3 class="text-2xl font-heading font-bold text-white mb-6">Send a Message</h3>
+              
+              <form id="contactForm" class="space-y-6" onsubmit="return false;">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="space-y-2">
+                    <label for="name" class="text-sm font-semibold text-slate-300 pl-1">Your Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required 
+                      class="w-full bg-[#0f172a] border border-white/10 rounded-2xl px-5 py-3.5 text-white text-base placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                  </div>
+                  <div class="space-y-2">
+                    <label for="email" class="text-sm font-semibold text-slate-300 pl-1">Your Email</label>
+                    <input type="email" id="email" placeholder="john@example.com" required 
+                      class="w-full bg-[#0f172a] border border-white/10 rounded-2xl px-5 py-3.5 text-white text-base placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="subject" class="text-sm font-semibold text-slate-300 pl-1">Subject</label>
+                  <input type="text" id="subject" placeholder="Project Inquiry / Collaboration" 
+                    class="w-full bg-[#0f172a] border border-white/10 rounded-2xl px-5 py-3.5 text-white text-base placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                </div>
+
+                <div class="space-y-2">
+                  <label for="message" class="text-sm font-semibold text-slate-300 pl-1">Message</label>
+                  <textarea id="message" rows="5" placeholder="Tell me about your idea or project..." required
+                    class="w-full bg-[#0f172a] border border-white/10 rounded-2xl px-5 py-3.5 text-white text-base placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none"></textarea>
+                </div>
+
+                <button type="button" id="sendEmailButton" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg rounded-2xl shadow-xl shadow-cyan-500/20 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                  <ion-icon name="send-outline" class="text-xl"></ion-icon> Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
   </main>
 
+  <!-- Unified Footer -->
   <footer class="py-12 bg-[#0f172a] border-t border-white/10">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <p class="text-slate-400 text-xl font-medium">&copy; 2026 Saish Chaskar. All rights reserved.</p>
+    <div class="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <a href="#home" class="brand-mark text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
+          Saish.
+        </a>
+        <span class="text-slate-500">·</span>
+        <p class="text-slate-400 text-base">&copy; 2026 Saish Chaskar. All rights reserved.</p>
+      </div>
       
-      <div class="flex gap-8">
-        <a href="https://github.com/saishchaskar" class="text-3xl text-slate-400 hover:text-white transition-colors transform hover:scale-110">
+      <div class="flex gap-6">
+        <a href="https://github.com/saishchaskar" target="_blank" class="text-2xl text-slate-400 hover:text-white transition-colors transform hover:scale-110" title="GitHub">
           <ion-icon name="logo-github"></ion-icon>
         </a>
-        <a href="https://www.linkedin.com/in/saish-chaskar-74b705237/" class="text-3xl text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
+        <a href="https://www.linkedin.com/in/saish-chaskar-74b705237/" target="_blank" class="text-2xl text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110" title="LinkedIn">
           <ion-icon name="logo-linkedin"></ion-icon>
         </a>
-        <a href="https://instagram.com/saishchaskar" class="text-3xl text-slate-400 hover:text-pink-500 transition-colors transform hover:scale-110">
+        <a href="https://instagram.com/saishchaskar" target="_blank" class="text-2xl text-slate-400 hover:text-pink-500 transition-colors transform hover:scale-110" title="Instagram">
           <ion-icon name="logo-instagram"></ion-icon>
         </a>
       </div>
@@ -388,25 +915,7 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   
-  <script>
-    // Mobile Menu Logic
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-
-    btn.addEventListener('click', () => {
-      if (menu.classList.contains('max-h-0')) {
-        menu.classList.remove('max-h-0', 'opacity-0');
-        menu.classList.add('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="close-outline"></ion-icon>';
-      } else {
-        menu.classList.add('max-h-0', 'opacity-0');
-        menu.classList.remove('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
-      }
-    });
-
-  </script>
-  <script src="./assets/js/enhancements.js?v=20261117-5"></script>
+  <script src="./assets/js/enhancements.js?v=20261119-3"></script>
 
 </body>
 </html>
