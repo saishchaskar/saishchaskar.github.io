@@ -22,64 +22,14 @@
   const insightCrops = document.querySelector('#insight-crops');
   const insightProblem = document.querySelector('#insight-problem');
   const insightBuild = document.querySelector('#insight-build');
-  const insightCropFact = document.querySelector('#insight-crop-fact');
-  const insightWaterFact = document.querySelector('#insight-water-fact');
-  const insightWeatherFact = document.querySelector('#insight-weather-fact');
   const regionData = window.contributeRegionData;
-  const cropSowingNotes = {
-    assam: 'Rabi jowar sowing had commenced.',
-    'jammu-and-kashmir': 'Rabi jowar sowing had commenced.',
-    karnataka: 'Rabi maize sowing had commenced.',
-    kerala: 'Rabi rice sowing had commenced.',
-    mizoram: 'Rabi lentil, urdbean, and other-pulse sowing had commenced.',
-    nagaland: 'Rabi gram, lentil, fieldpea, urdbean, other-pulse, and linseed sowing had commenced.',
-    rajasthan: 'Rabi gram, jowar, barley, and other-pulse sowing had commenced.',
-    sikkim: 'Rabi fieldpea sowing had commenced.',
-    'tamil-nadu': 'Rabi rice, rapeseed-and-mustard, and groundnut sowing had commenced.'
-  };
-  const reservoirRegionByState = {
-    assam: 'east',
-    bihar: 'east',
-    chhattisgarh: 'central',
-    goa: 'west',
-    gujarat: 'west',
-    'himachal-pradesh': 'north',
-    jharkhand: 'east',
-    karnataka: 'south',
-    kerala: 'south',
-    'madhya-pradesh': 'central',
-    maharashtra: 'west',
-    meghalaya: 'east',
-    mizoram: 'east',
-    nagaland: 'east',
-    odisha: 'east',
-    punjab: 'north',
-    rajasthan: 'north',
-    'tamil-nadu': 'south',
-    telangana: 'south',
-    tripura: 'east',
-    'uttar-pradesh': 'central',
-    uttarakhand: 'central',
-    'west-bengal': 'east',
-    'andhra-pradesh': 'south'
-  };
-  const reservoirRegionFacts = {
-    north: { name: 'North', reservoirs: 11, current: '57.33%', normal: '79.31%' },
-    east: { name: 'East', reservoirs: 31, current: '79.89%', normal: '80.84%' },
-    west: { name: 'West', reservoirs: 58, current: '80.73%', normal: '86.91%' },
-    central: { name: 'Central', reservoirs: 28, current: '86.36%', normal: '85.15%' },
-    south: { name: 'South', reservoirs: 50, current: '44.31%', normal: '77.54%' }
-  };
-  const observedWeatherNotes = {
-    'madhya-pradesh': 'The IMD bulletin issued 19 Oct reported 12 cm at Guna in the 24 hours ending 05:30 IST that morning, with isolated heavy-to-very-heavy rain in West Madhya Pradesh. This is a past observation, not a current forecast.'
-  };
 
   function setMapStatus(message) {
     if (mapStatus) mapStatus.textContent = message;
   }
 
-  function showInsight(name, type, data, slug) {
-    if (!insightTitle || !insightCrops || !insightProblem || !insightBuild || !insightCropFact || !insightWaterFact || !insightWeatherFact) return;
+  function showInsight(name, type, data) {
+    if (!insightTitle || !insightCrops || !insightProblem || !insightBuild) return;
 
     insightTitle.textContent = `${name} · ${type}`;
     insightCrops.replaceChildren();
@@ -90,14 +40,6 @@
     });
     insightProblem.textContent = data.problem;
     insightBuild.textContent = `Build prompt: ${data.build}`;
-    insightCropFact.textContent = cropSowingNotes[slug] ||
-      'The cited crop bulletin does not list a state-specific sowing note here; no state-level inference is made.';
-    const reservoirRegion = reservoirRegionFacts[reservoirRegionByState[slug]];
-    insightWaterFact.textContent = reservoirRegion
-      ? `${reservoirRegion.name} region: ${reservoirRegion.current} of capacity across ${reservoirRegion.reservoirs} monitored reservoirs; normal for this date was ${reservoirRegion.normal}. This is a regional sample, not a state or farm water-supply estimate.`
-      : 'The cited CWC bulletin does not assign this state/UT to a monitoring region; no regional storage figure is inferred.';
-    insightWeatherFact.textContent = observedWeatherNotes[slug] ||
-      'No state- or district-specific rainfall observation from this bulletin is attached to this map selection.';
   }
 
   async function loadIndiaMap() {
@@ -142,23 +84,43 @@
         throw new Error(`Map context mismatch: found ${features.length} regions and ${missingData.length} missing entries.`);
       }
 
+      const cropMarkers = [
+        ['himachal-pradesh', 0],
+        ['punjab', 0],
+        ['rajasthan', 1],
+        ['gujarat', 1],
+        ['madhya-pradesh', 0],
+        ['assam', 1],
+        ['maharashtra', 0],
+        ['karnataka', 1],
+        ['kerala', 0],
+        ['andhra-pradesh', 2]
+      ];
+      const invalidCropMarkers = cropMarkers.filter(([slug, cropIndex]) => {
+        return !regionData[slug]?.crops?.[cropIndex] || !features.some((feature) => feature.dataset.slug === slug);
+      });
+      if (invalidCropMarkers.length) {
+        throw new Error(`Crop marker data mismatch: ${invalidCropMarkers.map(([slug]) => slug).join(', ')}.`);
+      }
+
       const markerLayer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       markerLayer.setAttribute('class', 'crop-marker-layer');
       markerLayer.setAttribute('aria-hidden', 'true');
-      features.forEach((feature) => {
-        const data = regionData[feature.dataset.slug];
+      cropMarkers.forEach(([slug, cropIndex]) => {
+        const feature = features.find((item) => item.dataset.slug === slug);
+        const [crop, icon] = regionData[slug].crops[cropIndex];
         const bounds = feature.getBBox();
-        const x = bounds.x + bounds.width / 2;
-        const y = bounds.y + bounds.height / 2;
         const marker = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         marker.setAttribute('class', 'crop-marker');
-        marker.setAttribute('transform', `translate(${x} ${y})`);
+        marker.setAttribute('transform', `translate(${bounds.x + bounds.width / 2} ${bounds.y + bounds.height / 2})`);
 
+        const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        title.textContent = `${crop} example · illustrative`;
         const background = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        background.setAttribute('r', '20');
-        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        icon.textContent = data.crops[0][1];
-        marker.append(background, icon);
+        background.setAttribute('r', '24');
+        const iconLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        iconLabel.textContent = icon;
+        marker.append(title, background, iconLabel);
         markerLayer.append(marker);
       });
       svg.append(markerLayer);
@@ -176,8 +138,8 @@
         const slug = feature.dataset.slug;
         const data = regionData[slug];
         updateActive(slug);
-        showInsight(feature.dataset.state, feature.dataset.type, data, slug);
-        setMapStatus(`${feature.dataset.state} · crop examples, official snapshots and tech prompt`);
+        showInsight(feature.dataset.state, feature.dataset.type, data);
+        setMapStatus(`${feature.dataset.state} · illustrative crop examples and build prompt`);
       }
 
       function selectFeature(feature) {
@@ -200,14 +162,11 @@
           const selectedFeature = features.find((feature) => feature.dataset.slug === selectedSlug);
           if (selectedFeature) return previewFeature(selectedFeature);
         }
-        if (insightTitle && insightCrops && insightProblem && insightBuild && insightCropFact && insightWaterFact && insightWeatherFact) {
+        if (insightTitle && insightCrops && insightProblem && insightBuild) {
           insightTitle.textContent = 'Choose a state on the map';
           insightCrops.replaceChildren();
           insightProblem.textContent = 'Hover, focus, or select a state to see a locally framed technology question.';
           insightBuild.textContent = '';
-          insightCropFact.textContent = 'Choose a state to see whether the Ministry bulletin includes a state-specific note.';
-          insightWaterFact.textContent = 'Choose a state to see its CWC monitoring-region comparison, where reported.';
-          insightWeatherFact.textContent = 'Choose a state to see whether a dated observation from this bulletin is relevant.';
         }
         setMapStatus('36 states & union territories · hover or focus a state');
       }
@@ -216,6 +175,7 @@
         const data = regionData[feature.dataset.slug];
         const cropNames = data.crops.map(([crop]) => crop).join(', ');
         feature.setAttribute('role', 'button');
+        feature.setAttribute('tabindex', '0');
         feature.setAttribute('aria-label', `${feature.dataset.state}, ${feature.dataset.type}. Crop examples: ${cropNames}. Activate for its technology prompt.`);
         feature.setAttribute('aria-pressed', 'false');
         feature.classList.add('map-region-button');
@@ -303,10 +263,17 @@
   const sources = [
     {
       organization: 'Government of India · Agriculture & Farmers Welfare',
-      title: 'Agriculture statistics and scheme information',
-      summary: 'Start with the ministry’s official information and statistics pages when checking crop and scheme context. This portfolio does not import or display live government data.',
+      title: 'Agriculture statistics',
+      summary: 'Use the ministry’s statistics portal to verify crop, year, geography, unit, and reporting notes before making state-level comparisons. This portfolio does not display live government data.',
       href: 'https://agriwelfare.gov.in/en/AgriculturalStatistics',
       note: 'Official Indian agriculture portal'
+    },
+    {
+      organization: 'Government of India · Central Water Commission',
+      title: 'Reservoir monitoring',
+      summary: 'CWC reservoir reports describe selected monitored reservoirs and regions; they do not represent water available to every state, district, or farm.',
+      href: 'https://cwc.gov.in/',
+      note: 'Official water-resources source'
     },
     {
       organization: 'Government of India · PMFBY',

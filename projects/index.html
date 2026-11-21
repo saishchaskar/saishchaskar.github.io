@@ -1,385 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#0f172a',
-              card: '#1e293b',
-              accent: '#38bdf8',
-            }
-          },
-          fontFamily: {
-            sans: ['Karla', 'sans-serif'],
-            heading: ['Cormorant', 'serif'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <title>Saish | Projects</title>
-  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
-  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected software engineering projects by Saish Chaskar.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Edu+SA+Beginner:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="../assets/css/require.css">
-  <link rel="stylesheet" href="../assets/css/theme.css?v=20261119-2">
-  <script src="../assets/js/theme.js"></script>
-  
-  <style>
-    /* CRITICAL FIX: Override require.css 62.5% font-size hack */
-    html {
-      font-size: 14px !important; 
-    }
-
-    /* CUSTOM SCROLLBAR - Page Level */
-    html::-webkit-scrollbar {
-      width: 8px;
-    }
-    html::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-    html::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.4);
-      border-radius: 10px;
-    }
-    html::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.7);
-    }
-
-    /* Card Hover Effect */
-    .project-card:hover .card-overlay {
-      opacity: 1;
-    }
-    .project-card:hover img {
-      transform: scale(1.05);
-    }
-    
-    /* Smooth transition for mobile menu */
-    #mobile-menu {
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
-
-    header {
-      transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
-    }
-
-    header.nav-hidden {
-      transform: translateY(-140%);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    header.nav-visible {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* CUSTOM SCROLLBAR for Cards */
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.3); /* Cyan tint */
-      border-radius: 10px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.6);
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=20261121-5">
+  <link rel="stylesheet" href="../assets/css/site-redesign.css">
+  <script src="../assets/js/theme.js" defer></script>
+  <title>Projects — Saish Chaskar</title>
 </head>
-
-<body class="bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white">
-
-  <header class="site-nav fixed top-4 left-0 right-0 z-50 px-4 md:px-8 nav-visible">
-    <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.45)]">
-      <div class="container mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="../" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
-          Saish.
-        </a>
-
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="../" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Home</a>
-          <a href="../skill/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Experience & Skills</a>
-          <a href="#" aria-current="page" class="text-lg font-semibold text-cyan-300 border-b-2 border-cyan-400 pb-1">Projects</a>
-          <a href="../contribute/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contribute</a>
-          <a href="../contact/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contact</a>
-        </nav>
-
-        <a href="../contact/" class="hidden md:inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:-translate-y-0.5 text-base">
-          Hire Me
-        </a>
-
-        <button id="mobile-menu-btn" class="md:hidden text-4xl text-white focus:outline-none">
-          <ion-icon name="menu-outline"></ion-icon>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobile-menu" class="md:hidden mx-auto mt-3 max-w-[92%] max-h-0 opacity-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl">
-      <nav class="flex flex-col p-6 space-y-4 text-center">
-        <a href="../" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Home</a>
-        <a href="../skill/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Experience</a>
-        <a href="#" aria-current="page" class="text-xl font-semibold text-cyan-300">Projects</a>
-        <a href="../contribute/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Contribute</a>
-        <a href="../contact/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
+<body class="site-redesign">
+  <header class="site-header">
+    <div class="site-header__inner container">
+      <a class="site-logo" href="../" aria-label="Saish Chaskar home">Saish.</a>
+      <nav class="site-nav-links" aria-label="Main navigation">
+        <a href="../">Home</a>
+        <a href="./index.html" aria-current="page">Projects</a>
+        <a href="../skill/index.html">Experience</a>
+        <a href="../contribute/index.html">Contribute</a>
       </nav>
+      <div class="site-header__actions">
+        <span class="header-availability"><span class="presence-dot"></span> Maharashtra, India</span>
+        <a class="button-primary" href="../contact/index.html">Contact <span aria-hidden="true">↗</span></a>
+        <details class="site-mobile-nav">
+          <summary aria-label="Open navigation">Menu</summary>
+          <nav class="mobile-nav-panel" aria-label="Mobile navigation">
+            <a href="../">Home</a>
+            <a href="./index.html">Projects</a>
+            <a href="../skill/index.html">Experience & skills</a>
+            <a href="../contribute/index.html">Contribute</a>
+            <a href="../contact/index.html">Contact</a>
+          </nav>
+        </details>
+      </div>
     </div>
   </header>
 
-  <main class="pt-32 pb-20 min-h-screen">
-    <div class="container mx-auto px-6 max-w-7xl">
-      
-      <div class="text-center mb-16">
-        <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6">Featured Projects</h1>
-        <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-          A collection of scalable applications, AI models, and cloud infrastructure projects I've engineered.
-        </p>
+  <main>
+    <section class="page-intro page-shell">
+      <p class="section-kicker">Selected work / 2022—now</p>
+      <h1>Useful software, built from the workflow out.</h1>
+      <p class="section-lede">Product engineering, operational tools, and experiments. Each project is labeled honestly about what is implemented, what is reported, and what is still in progress.</p>
+    </section>
+
+    <section class="page-shell case-list" aria-label="Project list">
+      <article class="case-row" id="petroconnect">
+        <span class="case-row-number">01</span>
+        <div>
+          <h2>PetroConnect</h2>
+          <p>Station workflows for shift reports, meter carry-forward, cash reconciliation, inventory, and analytics.</p>
+        </div>
+        <span class="case-stack">Java 21 · Spring Boot · React · TypeScript · PostgreSQL</span>
+        <a href="https://github.com/saishchaskar/petro-connect-manager" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+
+      <article class="case-row" id="resumemetrics">
+        <span class="case-row-number">02</span>
+        <div>
+          <h2>ResumeMetrics</h2>
+          <p>Recruiter workspace for batch screening and ATS intake, with ranked results, evidence excerpts, and exports. The durable cloud batch path needs setup and deployment; 2,000-resume capacity is not benchmarked.</p>
+        </div>
+        <span class="case-stack">React · Flask · GCS · Cloud Run · Cloud Tasks</span>
+        <a href="https://github.com/saishchaskar/resume-metrics" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+      <article class="case-row" id="pcb-tool">
+        <span class="case-row-number">03</span>
+        <div>
+          <h2>PCB Testing Tool</h2>
+          <p>Hardware validation flow connecting a web UI, API, middleware, and database. The README reports a test-cycle reduction from 2–3 hours to about 5 minutes.</p>
+        </div>
+        <span class="case-stack">React · FastAPI · WebSockets · C++ · PostgreSQL</span>
+        <a href="https://github.com/saishchaskar/SDE-Intern-Unbox-Robotics" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+      <article class="case-row" id="agroconnect">
+        <span class="case-row-number">04</span>
+        <div>
+          <h2>AgroConnect PWA</h2>
+          <p>Angular 18 and Spring Boot roadmap for offline-first crop-health support. Diagnosis currently returns a fixed example; model integration, evaluation, and deployment are incomplete.</p>
+        </div>
+        <span class="case-stack">Angular · Spring Boot · PWA · Roadmap</span>
+        <a href="https://github.com/saishchaskar/agroconnect-pwa" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+      <article class="case-row" id="crop-rag">
+        <span class="case-row-number">05</span>
+        <div>
+          <h2>Crop-Disease RAG Prototype</h2>
+          <p>Notebook research prototype retrieving crop-health references and drafting grounded responses. It is separate from AgroConnect and is not a deployed diagnosis service.</p>
+        </div>
+        <span class="case-stack">Sentence-BERT · Gemma 4B · RAG</span>
+        <a href="https://github.com/saishchaskar/crop-disease-diagnosis-powered-by-gemma" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+      <article class="case-row" id="shetkari">
+        <span class="case-row-number">06</span>
+        <div>
+          <h2>Shetkari</h2>
+          <p>Farmer-support Android app with mandi-price data, local weather, and Firebase authentication.</p>
+        </div>
+        <span class="case-stack">Kotlin · Android · Firebase · MVVM</span>
+        <a href="https://github.com/saishchaskar/Shetkari" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+      </article>
+    </section>
+
+    <section class="page-shell section-pad">
+      <div class="contact-band">
+        <div><p class="section-kicker">More context</p><h2>Want the story behind the work?</h2><p>See how my experience, skills, and education connect across these projects.</p></div>
+        <a class="button-primary" href="../skill/index.html">Experience & skills <span aria-hidden="true">↗</span></a>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-
-        <div id="agroconnect" class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-cyan-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/agri.jpg" alt="AgroConnect" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-green-500/20 text-green-300 text-sm font-bold rounded-full border border-green-500/30 backdrop-blur-md">AI / ML</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors shrink-0">AgroConnect</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                AI-driven crop disease management using a fine-tuned <strong>CNN ResNet50</strong> model on 50,000+ images. Features RAG-based chatbot for treatment advice. Optimized FAISS-based retrieval to manage over 1 million vectors, enabling fast and accurate data retrieval.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">TensorFlow</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Flutter</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Python</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/AgroConnect-dev" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-        <div id="resumemetrics" class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-purple-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/resumes-desk.jpg" alt="Resume Ranking" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-purple-500/20 text-purple-300 text-sm font-bold rounded-full border border-purple-500/30 backdrop-blur-md">Cloud Native</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors shrink-0">ResumeMetrics</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                Automated resume screening tool capable of ranking up to 2,000 resumes per batch based on job descriptions. Built on <strong>Google Cloud Run</strong> with Docker and Vision API for text extraction. Engineered a system to store history of up to 10,000 records.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">React</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Flask</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Docker</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">GCP</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/resume-screening-frontend" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-purple-500 hover:border-purple-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-        <div id="shetkari" class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-green-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/tractor.jpg" alt="Shetkari" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-green-500/20 text-green-300 text-sm font-bold rounded-full border border-green-500/30 backdrop-blur-md">Android</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors shrink-0">Shetkari App</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                Empowering farmers with real-time crop prices for <strong>180+ commodities</strong> across APMC markets. This project displays accurate news, government schemes, and location-based weather updates to help farmers make informed decisions.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Java</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Android SDK</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">APIs</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/Shetkari.git" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-green-500 hover:border-green-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-blue-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/speed.jpg" alt="Speedometer" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-blue-500/20 text-blue-300 text-sm font-bold rounded-full border border-blue-500/30 backdrop-blur-md">Web App</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors shrink-0">GPS Speedometer</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                An interactive, full-stack application designed to monitor GPS speed in real-time and efficiently visualize speed data on a dashboard. It manages speed data history and provides visual analytics.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">JavaScript</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Geolocation API</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/speedometer-unbox" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-blue-500 hover:border-blue-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-orange-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/gas.jpg" alt="Gas Utility" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-orange-500/20 text-orange-300 text-sm font-bold rounded-full border border-orange-500/30 backdrop-blur-md">Backend</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-orange-400 transition-colors shrink-0">Gas Utility Service</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                A consumer service portal allowing users to lodge service requests. Includes a robust support dashboard for agents to track and resolve tickets. Uses Django framework and SQL backend.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Django</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">SQL</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Python</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/gas_utility_services" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-orange-500 hover:border-orange-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card group bg-[#1e293b]/50 rounded-3xl border border-white/10 overflow-hidden hover:border-indigo-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 flex flex-col h-[600px]">
-          <div class="relative h-56 shrink-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1e293b] to-transparent z-10 opacity-60"></div>
-            <img src="../assets/images/spacex2.jpg" alt="SpaceX" class="w-full h-full object-cover transition-transform duration-500">
-            <div class="absolute top-4 right-4 z-20">
-              <span class="px-4 py-1.5 bg-indigo-500/20 text-indigo-300 text-sm font-bold rounded-full border border-indigo-500/30 backdrop-blur-md">API</span>
-            </div>
-          </div>
-          
-          <div class="p-8 flex-1 flex flex-col overflow-hidden">
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors shrink-0">SpaceX Integration</h3>
-            
-            <div class="flex-1 overflow-y-auto custom-scroll pr-2 mb-6">
-              <p class="text-slate-300 text-lg leading-relaxed">
-                Configured RESTful API integration to fetch and visualize launch data from the open-source SpaceX API. Handles complex JSON responses efficiently and displays launch details.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 mb-6 shrink-0">
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">REST API</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">JSON</span>
-              <span class="text-sm px-3 py-1.5 bg-white/5 rounded-lg text-slate-300 border border-white/5">Frontend</span>
-            </div>
-
-            <a href="https://github.com/saishchaskar/SaishChaskar-Frontend-Developer.git" target="_blank" class="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-indigo-500 hover:border-indigo-500 hover:text-white text-slate-200 font-semibold text-lg transition-all flex items-center justify-center gap-3 shrink-0">
-              <ion-icon name="logo-github" class="text-xl"></ion-icon> View Code
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </section>
   </main>
 
-  <footer class="py-8 bg-[#0f172a] border-t border-white/10">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-slate-400 text-lg">&copy; 2026 Saish Chaskar. All rights reserved.</p>
-      
-      <div class="flex gap-6">
-        <a href="https://github.com/saishchaskar" class="text-2xl text-slate-400 hover:text-white transition-colors">
-          <ion-icon name="logo-github"></ion-icon>
-        </a>
-        <a href="https://www.linkedin.com/in/saish-chaskar-74b705237/" class="text-2xl text-slate-400 hover:text-blue-500 transition-colors">
-          <ion-icon name="logo-linkedin"></ion-icon>
-        </a>
-        <a href="https://instagram.com/saishchaskar" class="text-2xl text-slate-400 hover:text-pink-500 transition-colors">
-          <ion-icon name="logo-instagram"></ion-icon>
-        </a>
-      </div>
+  <footer class="site-footer-v2">
+    <div class="page-shell">
+      <span>© <span id="current-year">2026</span> Saish Chaskar</span>
+      <nav class="footer-links" aria-label="Social links">
+        <a href="https://github.com/saishchaskar" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/saish-chaskar/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href="mailto:saish.chaskar@gmail.com">Email</a>
+      </nav>
     </div>
   </footer>
-
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-
-    btn.addEventListener('click', () => {
-      if (menu.classList.contains('max-h-0')) {
-        menu.classList.remove('max-h-0', 'opacity-0');
-        menu.classList.add('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="close-outline"></ion-icon>';
-      } else {
-        menu.classList.add('max-h-0', 'opacity-0');
-        menu.classList.remove('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
-      }
-    });
-
-  </script>
-  <script src="../assets/js/enhancements.js?v=20261119-2"></script>
-
 </body>
 </html>

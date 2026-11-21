@@ -1,378 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#0f172a',    // Slate 900
-              card: '#1e293b',    // Slate 800
-              accent: '#38bdf8',  // Sky 400
-              text: '#e2e8f0'     // Slate 200
-            }
-          },
-          fontFamily: {
-            sans: ['Karla', 'sans-serif'],
-            heading: ['Cormorant', 'serif'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Saish Chaskar's software engineering experience, skills, education, and certifications.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Edu+SA+Beginner:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/require.css">
-  <link rel="stylesheet" href="../assets/css/theme.css?v=20261119-2">
-  <script src="../assets/js/theme.js"></script>
-  
-  <title>Saish | Skills & Experience</title>
-
-  <style>
-    /* CUSTOM SCROLLBAR - Page Level */
-html {
-      font-size: 14px !important; 
-    }
-    html::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-    html::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.4);
-      border-radius: 10px;
-    }
-    html::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.7);
-    }
-
-    /* Custom Scrollbar for the Experience Section */
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.3);
-      border-radius: 10px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.6);
-    }
-
-    header {
-      transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
-    }
-
-    header.nav-hidden {
-      transform: translateY(-140%);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    header.nav-visible {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css?v=20261121-5">
+  <link rel="stylesheet" href="../assets/css/site-redesign.css">
+  <script src="../assets/js/theme.js" defer></script>
+  <title>Experience & Skills — Saish Chaskar</title>
 </head>
-
-<body class="bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white">
-
-  <header class="site-nav fixed top-4 left-0 right-0 z-50 px-4 md:px-8 nav-visible">
-    <div class="mx-auto max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.45)]">
-      <div class="container mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="../" class="brand-mark text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
-          Saish.
-        </a>
-
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="../" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Home</a>
-          <a href="#" class="text-lg font-medium text-cyan-400">Experience & Skills</a>
-          <a href="../projects/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Projects</a>
-          <a href="../contribute/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contribute</a>
-          <a href="../contact/" class="text-lg font-medium text-slate-200 hover:text-cyan-400 transition-colors">Contact</a>
-        </nav>
-
-        <a href="../contact/" class="hidden md:inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:-translate-y-0.5 text-base">
-          Hire Me
-        </a>
-        
-        <button id="mobile-menu-btn" class="md:hidden text-4xl text-white focus:outline-none">
-          <ion-icon name="menu-outline"></ion-icon>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="md:hidden mx-auto mt-3 max-w-[92%] max-h-0 opacity-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl">
-      <nav class="flex flex-col p-6 space-y-4 text-center">
-        <a href="../" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Home</a>
-        <a href="#" class="text-xl font-medium text-cyan-400">Experience</a>
-        <a href="../projects/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Projects</a>
-        <a href="../contribute/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Contribute</a>
-        <a href="../contact/" class="text-xl font-medium text-slate-300 hover:text-cyan-400">Contact</a>
+<body class="site-redesign">
+  <header class="site-header">
+    <div class="site-header__inner container">
+      <a class="site-logo" href="../" aria-label="Saish Chaskar home">Saish.</a>
+      <nav class="site-nav-links" aria-label="Main navigation">
+        <a href="../">Home</a>
+        <a href="../projects/index.html">Projects</a>
+        <a href="./index.html" aria-current="page">Experience</a>
+        <a href="../contribute/index.html">Contribute</a>
       </nav>
+      <div class="site-header__actions">
+        <span class="header-availability"><span class="presence-dot"></span> Maharashtra, India</span>
+        <a class="button-primary" href="../contact/index.html">Contact <span aria-hidden="true">↗</span></a>
+        <details class="site-mobile-nav">
+          <summary aria-label="Open navigation">Menu</summary>
+          <nav class="mobile-nav-panel" aria-label="Mobile navigation">
+            <a href="../">Home</a>
+            <a href="../projects/index.html">Projects</a>
+            <a href="./index.html">Experience & skills</a>
+            <a href="../contribute/index.html">Contribute</a>
+            <a href="../contact/index.html">Contact</a>
+          </nav>
+        </details>
+      </div>
     </div>
   </header>
 
-  <main class="pt-28 pb-20 min-h-screen">
-    <div class="container mx-auto px-4 md:px-8 max-w-8xl"> <div class="text-center mb-16">
-        <h1 class="journey-title font-heading text-5xl md:text-7xl font-bold mb-4">
-          My Journey
-        </h1>
-        <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto">
-          Combining <span class="text-cyan-400 font-semibold">technical expertise</span> with hands-on <span class="text-purple-400 font-semibold">industry experience</span>.
-        </p>
+  <main>
+    <section class="page-intro page-shell">
+      <p class="section-kicker">Experience & capabilities</p>
+      <h1>A career shaped by how systems work—and who they work for.</h1>
+      <p class="section-lede">From store operations to cloud engineering and full-stack development, each step has added a different view of reliable, useful software.</p>
+    </section>
+
+    <section class="page-shell experience-page-grid">
+      <div>
+        <h2>Work history</h2>
+        <article class="current-role">
+          <p class="section-kicker">Jan 2025 — present · Promoted Aug 2025</p>
+          <h3>Software Development Engineer · Full Stack</h3>
+          <p><strong>Unbox Robotics</strong> · Pune, Maharashtra · On-site</p>
+          <ul>
+            <li>Build and maintain BUNDL, a React and TypeScript PWA for live warehouse sortation workflows.</li>
+            <li>Develop API gateways and asynchronous Node.js/Python services, with service responses under 100 ms.</li>
+            <li>Support event-driven systems processing 30–40K+ events per day.</li>
+            <li>Improve release confidence with E2E automation and CI security checks; operate observability with Grafana, Loki, Prometheus, and Alloy.</li>
+          </ul>
+          <div class="role-tags"><span>React · TypeScript</span><span>Node.js · Python</span><span>Grafana · Prometheus</span></div>
+        </article>
+        <article class="education-card">
+          <p class="section-kicker">Mar 2024 — Aug 2024</p>
+          <h3>Cloud Engineer Intern · Cubois Technologies</h3>
+          <p>Built a foundation across Google Cloud services.</p>
+        </article>
+        <article class="education-card">
+          <p class="section-kicker">Jun 2022 — Aug 2023</p>
+          <h3>Sales Operations / Coffee Master · Starbucks</h3>
+          <p>Contributed to store operations and inventory management; served as a Coffee Master and Barista Trainer.</p>
+        </article>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <aside>
+        <h2>Education & credentials</h2>
+        <article class="education-card">
+          <p class="section-kicker">2021 — 2025</p>
+          <h3>B.Tech, Computer Engineering</h3>
+          <p>Ramrao Adik Institute of Technology</p>
+          <p>Minor in Cloud Computing · CGPA 8.0 / 10</p>
+        </article>
+        <article class="education-card">
+          <h3>Google Cloud</h3>
+          <p>Professional Cloud Architect</p>
+          <p>Associate Cloud Engineer</p>
+        </article>
+        <article class="education-card">
+          <h3>Additional certification</h3>
+          <p>Power BI Basics</p>
+        </article>
+      </aside>
+    </section>
 
-        <div class="lg:col-span-7 space-y-8">
-          <div class="flex items-center gap-4 mb-2">
-            <ion-icon name="briefcase-outline" class="text-4xl text-cyan-400"></ion-icon>
-            <h2 class="text-4xl font-heading font-bold text-white">Experience</h2>
-          </div>
-
-          <div class="relative border-l-2 border-white/10 ml-4 space-y-12">
-
-            <div class="relative pl-8 group">
-              <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.8)]"></div>
-              
-              <div class="bg-[#1e293b]/50 p-8 rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-all duration-300 hover:bg-[#1e293b]">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <h3 class="text-2xl font-bold text-white">Software Developer - Fullstack</h3>
-                  <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-base font-semibold rounded-full border border-cyan-500/20">July 2025 - Present</span>
-                </div>
-                <div class="mb-6">
-                  <h4 class="text-xl text-cyan-300 font-medium">Unbox Robotics</h4>
-                  <p class="text-slate-400">Pune, Maharashtra · On-site</p>
-                </div>
-                
-                <ul class="space-y-3 text-lg text-slate-300 leading-relaxed list-disc list-outside pl-5 marker:text-cyan-500">
-                  <li>Specifying and building customer-facing service handling real-time APIs for <strong>30–40K parcels/day</strong> with low-latency (<strong>&lt;100 ms</strong>) responses.</li>
-                  <li>Architected high-throughput event pipelines to process <strong>60–80K+ events/day</strong>, ensuring reliable updates during live sortation.</li>
-                  <li>Built customer-specific data mapping layers to integrate diverse client schemas, enabling support for multiple sorting types.</li>
-                  <li>Built and owned <strong>Grafana dashboards</strong> to track FTP upload rates, latency, and volumes, significantly reducing manual follow-ups.</li>
-                </ul>
-
-                <div class="mt-6 flex flex-wrap gap-2">
-                  <span class="tech-tag">Docker</span>
-                  <span class="tech-tag">RabbitMQ</span>
-                  <span class="tech-tag">Spring Boot</span>
-                  <span class="tech-tag">Java</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="relative pl-8 group">
-              <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.8)]"></div>
-              
-              <div class="bg-[#1e293b]/50 p-8 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-all duration-300 hover:bg-[#1e293b]">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <h3 class="text-2xl font-bold text-white">Software Development Intern</h3>
-                  <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-base font-semibold rounded-full border border-purple-500/20">Jan 2025 - July 2025</span>
-                </div>
-                <div class="mb-4">
-                  <h4 class="text-xl text-purple-300 font-medium">Unbox Robotics</h4>
-                </div>
-                <p class="text-lg text-slate-300 mb-4">
-                  Gained hands-on experience in the Software Development Life Cycle (SDLC) and Linux environments. Contributed to core backend modules and testing frameworks.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  <span class="tech-tag bg-purple-500/10 border-purple-500/20 text-purple-300">Linux</span>
-                  <span class="tech-tag bg-purple-500/10 border-purple-500/20 text-purple-300">SDLC</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="relative pl-8 group">
-              <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
-              
-              <div class="bg-[#1e293b]/50 p-8 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:bg-[#1e293b]">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <h3 class="text-2xl font-bold text-white">Cloud Engineer Intern</h3>
-                  <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-base font-semibold rounded-full border border-blue-500/20">Mar 2024 - Aug 2024</span>
-                </div>
-                <div class="mb-4">
-                  <h4 class="text-xl text-blue-300 font-medium">Cubois Technologies</h4>
-                  <p class="text-slate-400">Remote</p>
-                </div>
-                <p class="text-lg text-slate-300">
-                  Acquired deep knowledge of 8 core cloud services and over 150 Google Cloud products. Successfully achieved the <strong>Google Cloud Associate Engineer Certification</strong>.
-                </p>
-              </div>
-            </div>
-
-            <div class="relative pl-8 group">
-              <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.8)]"></div>
-              
-              <div class="bg-[#1e293b]/50 p-8 rounded-2xl border border-white/5 hover:border-green-500/30 transition-all duration-300 hover:bg-[#1e293b]">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <h3 class="text-2xl font-bold text-white">Sales Operations / Coffee Master</h3>
-                  <span class="px-3 py-1 bg-green-500/10 text-green-400 text-base font-semibold rounded-full border border-green-500/20">Jun 2022 - Aug 2023</span>
-                </div>
-                <div class="mb-4">
-                  <h4 class="text-xl text-green-300 font-medium">Starbucks</h4>
-                </div>
-                <p class="text-lg text-slate-300">
-                  Attained the title of "Coffee Master" and "Barista Trainer". Showcased exceptional leadership and contributed to store operations and inventory management.
-                </p>
-              </div>
-            </div>
-
+    <section class="section-pad">
+      <div class="page-shell">
+        <div class="section-heading-row">
+          <div>
+            <p class="section-kicker">Technical toolkit</p>
+            <h2 class="section-title">A practical stack, organized by the work.</h2>
+            <p class="section-lede">Technologies I’ve used across projects and roles, grouped by the kinds of problems they help me solve.</p>
           </div>
         </div>
-
-        <div class="lg:col-span-5 space-y-8 sticky top-28 h-fit">
-          <div class="flex items-center gap-4 mb-2">
-            <ion-icon name="code-slash-outline" class="text-4xl text-purple-400"></ion-icon>
-            <h2 class="text-4xl font-heading font-bold text-white">Technical Skills</h2>
-          </div>
-
-          <div class="bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-xl hover:shadow-cyan-500/10 transition-all">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 text-3xl">
-                <ion-icon name="terminal"></ion-icon>
-              </div>
-              <h3 class="text-2xl font-bold text-white">Languages</h3>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <span class="skill-pill">Java</span>
-              <span class="skill-pill">Python</span>
-              <span class="skill-pill">JavaScript</span>
-              <span class="skill-pill">HTML/CSS</span>
-              <span class="skill-pill">SQL</span>
-            </div>
-          </div>
-
-          <div class="bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-xl hover:shadow-purple-500/10 transition-all">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="p-3 bg-purple-500/10 rounded-xl text-purple-400 text-3xl">
-                <ion-icon name="layers"></ion-icon>
-              </div>
-              <h3 class="text-2xl font-bold text-white">Frameworks & Backend</h3>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <span class="skill-pill border-purple-500/30 text-purple-300">Spring Boot</span>
-              <span class="skill-pill border-purple-500/30 text-purple-300">FastAPI</span>
-              <span class="skill-pill border-purple-500/30 text-purple-300">Node.js</span>
-              <span class="skill-pill border-purple-500/30 text-purple-300">React</span>
-              <span class="skill-pill border-purple-500/30 text-purple-300">Tailwind</span>
-            </div>
-          </div>
-
-          <div class="bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-xl hover:shadow-orange-500/10 transition-all">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="p-3 bg-orange-500/10 rounded-xl text-orange-400 text-3xl">
-                <ion-icon name="cloud-upload"></ion-icon>
-              </div>
-              <h3 class="text-2xl font-bold text-white">Cloud & DevOps</h3>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <span class="skill-pill border-orange-500/30 text-orange-300">Google Cloud (ACE)</span>
-              <span class="skill-pill border-orange-500/30 text-orange-300">AWS</span>
-              <span class="skill-pill border-orange-500/30 text-orange-300">Docker</span>
-              <span class="skill-pill border-orange-500/30 text-orange-300">Kubernetes</span>
-              <span class="skill-pill border-orange-500/30 text-orange-300">Jenkins</span>
-            </div>
-          </div>
-
-          <div class="bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-xl hover:shadow-green-500/10 transition-all">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="p-3 bg-green-500/10 rounded-xl text-green-400 text-3xl">
-                <ion-icon name="server"></ion-icon>
-              </div>
-              <h3 class="text-2xl font-bold text-white">Tools & Databases</h3>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <span class="skill-pill border-green-500/30 text-green-300">PostgreSQL</span>
-              <span class="skill-pill border-green-500/30 text-green-300">Redis</span>
-              <span class="skill-pill border-green-500/30 text-green-300">RabbitMQ</span>
-              <span class="skill-pill border-green-500/30 text-green-300">Grafana</span>
-              <span class="skill-pill border-green-500/30 text-green-300">Git/GitHub</span>
-            </div>
-          </div>
-
+        <div class="capability-grid">
+          <article class="capability"><small>01 / Languages</small><h3>Programming</h3><p>Java, Python, JavaScript, TypeScript, C++, SQL, HTML5, and CSS3.</p></article>
+          <article class="capability"><small>02 / Application</small><h3>Frameworks & backend</h3><p>Spring Boot, Spring MVC, Spring Security, J2EE, REST, FastAPI, Django, Node.js, React, Redux, Tailwind CSS, and Cube.js.</p></article>
+          <article class="capability"><small>03 / Infrastructure</small><h3>Cloud & delivery</h3><p>Google Cloud, AWS, Docker, Kubernetes, GitLab CI, Jenkins, and Apache Tomcat.</p></article>
+          <article class="capability"><small>04 / Persistence</small><h3>Data & messaging</h3><p>PostgreSQL, Oracle, MongoDB, Redis, and RabbitMQ.</p></article>
+          <article class="capability"><small>05 / Reliability</small><h3>Observability & systems</h3><p>Grafana, Prometheus, Loki, Alloy, Linux, Git, and Jira.</p></article>
+          <article class="capability"><small>06 / Quality & AI</small><h3>Testing and applied AI</h3><p>LangChain, RAG, FAISS, embeddings, Maven, JUnit, Mockito, Playwright, and OWASP ZAP.</p></article>
         </div>
-
       </div>
-    </div>
+    </section>
+
+    <section class="page-shell section-pad">
+      <div class="contact-band">
+        <div><p class="section-kicker">Selected work</p><h2>See these skills in context.</h2><p>Explore product projects, prototypes, and their current status.</p></div>
+        <a class="button-primary" href="../projects/index.html">Browse projects <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
   </main>
 
-  <footer class="py-8 bg-[#0f172a] border-t border-white/10">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-slate-400 text-lg">&copy; 2026 Saish Chaskar. All rights reserved.</p>
-      
-      <div class="flex gap-6">
-        <a href="https://github.com/saishchaskar" class="text-2xl text-slate-400 hover:text-white transition-colors">
-          <ion-icon name="logo-github"></ion-icon>
-        </a>
-        <a href="https://www.linkedin.com/in/saish-chaskar-74b705237/" class="text-2xl text-slate-400 hover:text-blue-500 transition-colors">
-          <ion-icon name="logo-linkedin"></ion-icon>
-        </a>
-        <a href="https://instagram.com/saishchaskar" class="text-2xl text-slate-400 hover:text-pink-500 transition-colors">
-          <ion-icon name="logo-instagram"></ion-icon>
-        </a>
-      </div>
+  <footer class="site-footer-v2">
+    <div class="page-shell">
+      <span>© <span id="current-year">2026</span> Saish Chaskar</span>
+      <nav class="footer-links" aria-label="Social links">
+        <a href="https://github.com/saishchaskar" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/saish-chaskar/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href="mailto:saish.chaskar@gmail.com">Email</a>
+      </nav>
     </div>
   </footer>
-
-  <style>
-    .tech-tag {
-      display: inline-block;
-      padding: .25rem .75rem;
-      color: #67e8f9;
-      background: rgba(6, 182, 212, .1);
-      border: 1px solid rgba(6, 182, 212, .2);
-      border-radius: .375rem;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-    .skill-pill {
-      display: inline-block;
-      padding: .5rem 1rem;
-      color: #e2e8f0;
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, .1);
-      border-radius: .5rem;
-      font-size: 1.125rem;
-      font-weight: 500;
-      cursor: default;
-      transition: border-color .2s ease, color .2s ease, transform .2s ease;
-    }
-    .skill-pill:hover { color: #22d3ee; border-color: rgba(6, 182, 212, .5); transform: translateY(-2px); }
-  </style>
-
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-
-    btn.addEventListener('click', () => {
-      if (menu.classList.contains('max-h-0')) {
-        menu.classList.remove('max-h-0', 'opacity-0');
-        menu.classList.add('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="close-outline"></ion-icon>';
-      } else {
-        menu.classList.add('max-h-0', 'opacity-0');
-        menu.classList.remove('max-h-screen', 'opacity-100');
-        btn.innerHTML = '<ion-icon name="menu-outline"></ion-icon>';
-      }
-    });
-
-  </script>
-  <script src="../assets/js/enhancements.js?v=20261119-2"></script>
-
 </body>
 </html>

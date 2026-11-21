@@ -1,6 +1,6 @@
 # Saish Chaskar Portfolio
 
-![Portfolio](https://img.shields.io/badge/Portfolio-Live-38bdf8?style=for-the-badge&logo=githubpages&logoColor=white)
+![Portfolio](https://img.shields.io/badge/Portfolio-Live-167c78?style=for-the-badge&logo=githubpages&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -25,21 +25,19 @@ This portfolio is designed to:
 - HTML5
 - CSS3
 - JavaScript
-- Tailwind CSS (via CDN)
 - GitHub Pages hosting
 
 ## Features
 
 - Responsive layout for desktop and mobile
-- Dark, modern UI with accent gradients and animations
-- Apple-inspired light and dark themes with persistent theme preference
-- Palette-driven light theme with navy, red, magenta, and pink accents
-- Unified single-page portfolio with buttery smooth in-page scrolling, sticky glassmorphic navigation bar, and responsive active scroll-spy
-- Theme-matched preloader entrance with glowing cyan indicator and multilingual greetings including Marathi (नमस्कार), Hindi (नमस्ते), English, French, Italian, Portuguese, Japanese, German, and Dutch with curved SVG curtain wipe
-- Interactive Experience Timeline and categorized Technical Skills
-- Complete 6-project showcase with technology tags, image previews, and direct repository links
-- Dedicated AgroConnect open-source AgriTech spotlight linking to the 28-state interactive map
-- Integrated contact information and interactive message form with direct dispatch
+- Technical editorial visual system with layered blue surfaces, electric cobalt, lime accents, and a persistent light/dark theme preference
+- A role-led homepage with dedicated Projects, Experience & Skills, Contribute, and Contact pages
+- Shared navigation and responsive layouts across dedicated routes
+- HTML/CSS product and workflow illustrations instead of generic project-card photos
+- Résumé-aligned experience, education, certifications, and categorized technical skills
+- Project showcase with verified project status, HTML/CSS product visuals, and direct repository links
+- Dedicated AgroConnect open-source AgriTech spotlight linking to an interactive India state/UT map with clearly labeled research limits
+- Contact details and a mailto message composer (no server-side form submission)
 - Clean URLs for GitHub Pages routing
 
 ## Project Structure
